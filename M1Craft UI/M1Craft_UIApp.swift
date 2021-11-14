@@ -24,12 +24,14 @@ struct M1Craft_UIApp: App {
                     Preflight(preflightCompleted: $preflightCompleted)
                 } else if let credentials = credentials {
                     ContentView(credentials: credentials)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     AuthView(credentials: $credentials)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
+            .frame(minWidth: 500,
+                   maxWidth: .infinity,
+                   minHeight: 350,
+                   maxHeight: .infinity)
         }
     }
 }

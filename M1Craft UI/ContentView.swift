@@ -32,6 +32,8 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Form {
+                Text("Logged in as: \(credentials.name)")
+                Divider()
                 Picker(selection: $selectedVersion, label: Text("Auto Version:")) {
                     Text("Latest Release").tag(VersionManifest.VersionType.release)
                     Text("Latest Snapshot").tag(VersionManifest.VersionType.snapshot)
