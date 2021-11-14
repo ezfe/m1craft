@@ -9,6 +9,7 @@ import Foundation
 import AuthenticationServices
 import SwiftUI
 import InstallationManager
+import Common
 
 class SignInViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
 
@@ -16,13 +17,13 @@ class SignInViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentati
         return ASPresentationAnchor()
     }
 
-    func signIn() async -> SignInResult {
+    func signIn() async throws -> SignInResult {
         let clientId = "92188479-b731-4baa-b4cb-2aad9a47d10f"
         let redirectUri = "https://m1craft-server.ezekiel.workers.dev/auth"
         let scope = "XboxLive.signin%20offline_access"
         let sentState = UUID()
 
-        let callbackUrl: URL? = try? await withCheckedThrowingContinuation { continuation in
+        let callbackUrl: URL = try await withCheckedThrowingContinuation { continuation in
             let url = URL(string: "https://login.live.com/oauth20_authorize.srf?client_id=\(clientId)&response_type=code&redirect_uri=\(redirectUri)&scope=\(scope)&state=\(sentState)")!
             print("Build URL")
             let authSession = ASWebAuthenticationSession(
@@ -44,24 +45,16 @@ class SignInViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentati
             print("Started session...")
         }
         
-        let fakeuuid = UUID().uuidString.replacingOccurrences(of: "-", with: "").lowercased()
-        let faketoken = UUID().uuidString
-        guard let callbackUrl = callbackUrl else {
-            print("Failed to complete auth")
-            return SignInResult(id: fakeuuid, name: "AuthFailure", token: faketoken)
-        }
-        
         let components = URLComponents(url: callbackUrl, resolvingAgainstBaseURL: false)!
         let queryItems = components.queryItems
   
         let id = queryItems?.first(where: { $0.name == "id" })?.value
         let name = queryItems?.first(where: { $0.name == "name" })?.value
         let token = queryItems?.first(where: { $0.name == "token" })?.value
-        let error = queryItems?.first(where: { $0.name == "error" })?.value
+        let error = queryItems?.first(where: { $0.name == "error_message" })?.value
 
         guard let id = id, let name = name, let token = token else {
-            print(error ?? "Unknown error")
-            return SignInResult(id: fakeuuid, name: "AuthFailure", token: faketoken)
+            throw CError.unknownError(error ?? "Unknown error")
         }
         
         return SignInResult(id: id, name: name, token: token)
@@ -69,18 +62,62 @@ class SignInViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentati
 }
 
 struct AuthView: View {
-    @StateObject var viewModel = SignInViewModel()
+    @StateObject
+    var viewModel = SignInViewModel()
     
     @Binding
     var credentials: SignInResult?
     
+    @State
+    var signingIn = false
+    @State
+    var errorMessageShown = false
+    @State
+    var errorMessage = ""
+    
     var body: some View {
-        Button("Sign In") {
-            Task {
-                print("Clicked button...")
-                let res = await viewModel.signIn()
-                credentials = res
+        VStack {
+            if signingIn {
+                Text("Complete login to continue.")
+                Text("If no window appears, quit Safari and try again.")
+                ProgressView()
+            } else {
+                Button("Sign In") {
+                    Task {
+                        signingIn = true
+                        do {
+                            let res = try await viewModel.signIn()
+                            credentials = res
+                        } catch let error {
+                            if let asError = error as? ASWebAuthenticationSessionError {
+                                switch asError.code {
+                                    case .canceledLogin:
+                                        errorMessage = "Login cancelled."
+                                    default:
+                                        errorMessage = "An unknown error occurred. Please quit Safari and try again."
+                                }
+                            } else if let cError = error as? CError {
+                                errorMessage = cError.errorText
+                            } else {
+                                errorMessage = error.localizedDescription
+                            }
+                            errorMessageShown = true
+                        }
+                        signingIn = false
+                    }
+                }
             }
-        }.padding()
+        }
+        .alert("Authentication Error", isPresented: $errorMessageShown, actions: {
+            Button {
+                errorMessageShown = false
+                credentials = nil
+            } label: {
+                Text("OK")
+            }
+        }, message: {
+            Text(errorMessage)
+        })
+        .padding()
     }
 }

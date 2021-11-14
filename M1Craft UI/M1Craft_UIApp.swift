@@ -12,14 +12,23 @@ import InstallationManager
 struct M1Craft_UIApp: App {
     
     @State
+    var preflightCompleted = false
+    
+    @State
     var credentials: SignInResult? = nil
     
     var body: some Scene {
         WindowGroup {
-            if let credentials = credentials {
-                ContentView(credentials: credentials)
-            } else {
-                AuthView(credentials: $credentials)
+            VStack {
+                if !preflightCompleted {
+                    Preflight(preflightCompleted: $preflightCompleted)
+                } else if let credentials = credentials {
+                    ContentView(credentials: credentials)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    AuthView(credentials: $credentials)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
             }
         }
     }
