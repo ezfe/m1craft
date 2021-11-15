@@ -19,7 +19,7 @@ class SignInViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentati
 
     func signIn() async throws -> SignInResult {
         let clientId = "92188479-b731-4baa-b4cb-2aad9a47d10f"
-        let redirectUri = "https://m1craft-server.ezekiel.workers.dev/auth"
+        let redirectUri = "\(serverAddress)/auth"
         let scope = "XboxLive.signin%20offline_access"
         let sentState = UUID()
 
@@ -51,13 +51,16 @@ class SignInViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentati
         let id = queryItems?.first(where: { $0.name == "id" })?.value
         let name = queryItems?.first(where: { $0.name == "name" })?.value
         let token = queryItems?.first(where: { $0.name == "token" })?.value
+        let refresh = queryItems?.first(where: { $0.name == "refresh" })?.value
         let error = queryItems?.first(where: { $0.name == "error_message" })?.value
 
-        guard let id = id, let name = name, let token = token else {
+        guard let id = id, let name = name, let token = token, let refresh = refresh else {
             throw CError.unknownError(error ?? "Unknown error")
         }
         
-        return SignInResult(id: id, name: name, token: token)
+        UserDefaults.standard.set(refresh, forKey: "azure_refresh_token")
+        
+        return SignInResult(id: id, name: name, token: token, refresh: refresh)
     }
 }
 

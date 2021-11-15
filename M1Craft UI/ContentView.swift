@@ -37,8 +37,6 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Form {
-                Text("Logged in as: \(credentials.name)")
-                Divider()
                 Picker(selection: $selectedVersion, label: Text("Auto Version:")) {
                     Text("Latest Release").tag(VersionManifest.VersionType.release)
                     Text("Latest Snapshot").tag(VersionManifest.VersionType.snapshot)
@@ -174,7 +172,8 @@ struct ContentView_Previews: PreviewProvider {
             credentials: SignInResult(
                 id: "uuidhere",
                 name: "ezfe",
-                token: "123456.67890"
+                token: "123456.67890",
+                refresh: "962312.134134"
             ),
             launcherDirectory: .constant(nil),
             minecraftDirectory: .constant(nil))

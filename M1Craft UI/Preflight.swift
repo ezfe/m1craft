@@ -45,7 +45,7 @@ struct Preflight: View {
         loading = true
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         
-        var components = URLComponents(string: "https://m1craft-server.ezekiel.workers.dev/preflight")
+        var components = URLComponents(string: "\(serverAddress)/preflight")
         components?.queryItems = [URLQueryItem(name: "app_version", value: appVersion)]
         
         let response = try? await URLSession.shared.data(from: components!.url!)

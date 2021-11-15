@@ -12,6 +12,8 @@
 		6604C26C271E1EF90024898E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6604C26B271E1EF90024898E /* Preview Assets.xcassets */; };
 		6604C278271E1FD80024898E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6604C277271E1FD80024898E /* ContentView.swift */; };
 		6604C27B271E1FFC0024898E /* InstallationManager in Frameworks */ = {isa = PBXBuildFile; productRef = 6604C27A271E1FFC0024898E /* InstallationManager */; };
+		66648ECC2742DCE5005CD396 /* RefreshAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */; };
+		66648ECE27431764005CD396 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66648ECD27431764005CD396 /* Constants.swift */; };
 		66D996812741C8E3000D53DD /* Preflight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D996802741C8E3000D53DD /* Preflight.swift */; };
 		66F13B1B273DCEA9002C297B /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F13B1A273DCEA9002C297B /* AuthView.swift */; };
 /* End PBXBuildFile section */
@@ -23,6 +25,8 @@
 		6604C26B271E1EF90024898E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6604C26D271E1EF90024898E /* M1Craft_UI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = M1Craft_UI.entitlements; sourceTree = "<group>"; };
 		6604C277271E1FD80024898E /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshAuthView.swift; sourceTree = "<group>"; };
+		66648ECD27431764005CD396 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		66D996802741C8E3000D53DD /* Preflight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preflight.swift; sourceTree = "<group>"; };
 		66F13B19273DCE35002C297B /* M1Craft-UI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "M1Craft-UI-Info.plist"; sourceTree = SOURCE_ROOT; };
 		66F13B1A273DCEA9002C297B /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
@@ -63,10 +67,12 @@
 				6604C264271E1EF80024898E /* M1Craft_UIApp.swift */,
 				66D996802741C8E3000D53DD /* Preflight.swift */,
 				66F13B1A273DCEA9002C297B /* AuthView.swift */,
+				66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */,
 				6604C277271E1FD80024898E /* ContentView.swift */,
 				6604C268271E1EF90024898E /* Assets.xcassets */,
 				6604C26D271E1EF90024898E /* M1Craft_UI.entitlements */,
 				6604C26A271E1EF90024898E /* Preview Content */,
+				66648ECD27431764005CD396 /* Constants.swift */,
 			);
 			path = "M1Craft UI";
 			sourceTree = "<group>";
@@ -155,10 +161,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66648ECC2742DCE5005CD396 /* RefreshAuthView.swift in Sources */,
 				6604C265271E1EF80024898E /* M1Craft_UIApp.swift in Sources */,
 				6604C278271E1FD80024898E /* ContentView.swift in Sources */,
 				66F13B1B273DCEA9002C297B /* AuthView.swift in Sources */,
 				66D996812741C8E3000D53DD /* Preflight.swift in Sources */,
+				66648ECE27431764005CD396 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +298,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"M1Craft UI/Preview Content\"";
 				DEVELOPMENT_TEAM = 39QG79F7FD;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -302,7 +310,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ezekiel.m1craft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -320,7 +329,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"M1Craft UI/Preview Content\"";
 				DEVELOPMENT_TEAM = 39QG79F7FD;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -332,7 +341,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ezekiel.m1craft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -368,7 +378,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ezfe/minecraft-jar-command";
 			requirement = {
-				branch = "no-arg-parser";
+				branch = main;
 				kind = branch;
 			};
 		};
