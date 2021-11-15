@@ -58,7 +58,7 @@ struct Preflight: View {
                 return
             }
 
-            message = decoded.message ?? ""
+            message = decoded.message
             messageUrl = decoded.url
             loading = false
         } else {

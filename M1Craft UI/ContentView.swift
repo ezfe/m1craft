@@ -29,6 +29,11 @@ struct ContentView: View {
     @State
     var message: String? = nil
     
+    @Binding
+    var launcherDirectory: URL?
+    @Binding
+    var minecraftDirectory: URL?
+    
     var body: some View {
         VStack {
             Form {
@@ -97,6 +102,9 @@ struct ContentView: View {
             
             print(installationManager.baseDirectory.path)
             
+            launcherDirectory = installationManager.baseDirectory
+            minecraftDirectory = installationManager.gameDirectory
+            
             do {
                 let versionInfo = try await installationManager.downloadVersionInfo(.mojang)
                 guard versionInfo.minimumLauncherVersion >= 21 else {
@@ -162,10 +170,13 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(credentials: SignInResult(
-            id: "uuidhere",
-            name: "ezfe",
-            token: "123456.67890"
-        ))
+        ContentView(
+            credentials: SignInResult(
+                id: "uuidhere",
+                name: "ezfe",
+                token: "123456.67890"
+            ),
+            launcherDirectory: .constant(nil),
+            minecraftDirectory: .constant(nil))
     }
 }

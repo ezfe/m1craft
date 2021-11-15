@@ -5,8 +5,8 @@
         "package": "minecraft-jar-command",
         "repositoryURL": "https://github.com/ezfe/minecraft-jar-command",
         "state": {
-          "branch": "no-arg-parser",
-          "revision": "d48ef0b2c250e986e1dd7da2c6ded80a1cebd79f",
+          "branch": "main",
+          "revision": "1a268c8a85937fe910f4b05583c8a888e6a54579",
           "version": null
         }
       },
