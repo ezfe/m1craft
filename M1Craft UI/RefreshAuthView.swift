@@ -48,12 +48,26 @@ struct RefreshAuthView: View {
                 
                 var request = URLRequest(url: refreshUrl)
                 request.httpMethod = "post"
-                let (data, _) = try await URLSession.shared.data(for: request)
+                let (data, response) = try await URLSession.shared.data(for: request)
                 
-                // TODO: Error handling
-                let results = try JSONDecoder().decode(SignInResult.self, from: data)
-                azureRefreshToken = results.refresh
-                credentials = results
+                let code = (response as? HTTPURLResponse)?.statusCode
+                
+                if let code = code {
+                    do {
+                        if code == 200 {
+                            let results = try JSONDecoder().decode(SignInResult.self, from: data)
+                            azureRefreshToken = results.refresh
+                            credentials = results
+                        } else {
+                            let response = try JSONDecoder().decode(PreflightResponse.self, from: data)
+                            message = response.message
+                        }
+                    } catch let err {
+                        message = err.localizedDescription
+                    }
+                } else {
+                    message = "An unexpected error occurred."
+                }
                 
                 signingIn = false
             }

@@ -28,20 +28,25 @@ struct M1Craft_UIApp: App {
     var body: some Scene {
         WindowGroup {
             VStack {
+                if azureRefreshToken.count > 0 || credentials != nil {
+                    if let credentials = credentials {
+                        Text("Currently signed in as: \(credentials.name)")
+                    } else {
+                        Text("Currently signed in.")
+                    }
+                    Button("Sign out") {
+                        azureRefreshToken = ""
+                        self.credentials = nil
+                    }
+                    Divider()
+                }
+
                 if !preflightCompleted {
                     Preflight(preflightCompleted: $preflightCompleted)
                 } else if let credentials = credentials {
-                    VStack {
-                        Text("Currently signed in as: \(credentials.name)")
-                        Button("Sign out") {
-                            azureRefreshToken = ""
-                            self.credentials = nil
-                        }
-                        Divider()
-                        ContentView(credentials: credentials,
-                                    launcherDirectory: $launcherDirectory,
-                                    minecraftDirectory: $minecraftDirectory)
-                    }
+                    ContentView(credentials: credentials,
+                                launcherDirectory: $launcherDirectory,
+                                minecraftDirectory: $minecraftDirectory)
                 } else if azureRefreshToken.count > 0 {
                     RefreshAuthView(credentials: $credentials,
                                     azureRefreshToken: $azureRefreshToken)
