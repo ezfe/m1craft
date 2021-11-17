@@ -34,6 +34,9 @@ struct ContentView: View {
     @Binding
     var minecraftDirectory: URL?
     
+    @Binding
+    var jsonData: Data?
+    
     var body: some View {
         VStack {
             Form {
@@ -109,6 +112,13 @@ struct ContentView: View {
                     message = "Unfortunately, \(versionInfo.id) isn't available from this utility. This utility does not work with versions prior to 1.13"
                     return
                 }
+                
+                if let package = installationManager.version {
+                    let encoder = JSONEncoder()
+                    encoder.dateEncodingStrategy = .iso8601
+                    jsonData = try? encoder.encode(package)
+                }
+                
                 javaDownload = 0.10
                 
                 try await installationManager.downloadJar()
@@ -176,6 +186,7 @@ struct ContentView_Previews: PreviewProvider {
                 refresh: "962312.134134"
             ),
             launcherDirectory: .constant(nil),
-            minecraftDirectory: .constant(nil))
+            minecraftDirectory: .constant(nil),
+            jsonData: .constant(nil))
     }
 }

@@ -24,6 +24,8 @@ struct M1Craft_UIApp: App {
     var launcherDirectory: URL? = nil
     @State
     var minecraftDirectory: URL? = nil
+    @State
+    var jsonData: Data? = nil
     
     var body: some Scene {
         WindowGroup {
@@ -46,7 +48,8 @@ struct M1Craft_UIApp: App {
                 } else if let credentials = credentials {
                     ContentView(credentials: credentials,
                                 launcherDirectory: $launcherDirectory,
-                                minecraftDirectory: $minecraftDirectory)
+                                minecraftDirectory: $minecraftDirectory,
+                                jsonData: $jsonData)
                 } else if azureRefreshToken.count > 0 {
                     RefreshAuthView(credentials: $credentials,
                                     azureRefreshToken: $azureRefreshToken)
@@ -75,6 +78,26 @@ struct M1Craft_UIApp: App {
                             NSWorkspace.shared.open(md)
                         }
                     }.disabled(minecraftDirectory == nil)
+                }
+                Group {
+                    if jsonData == nil {
+                        Text("Run the game to export JSON data")
+                    }
+                    Button("Export modified version JSON...") {
+                        let savePanel = NSSavePanel()
+                        savePanel.allowedContentTypes = [.json]
+                        savePanel.canCreateDirectories = true
+                        savePanel.isExtensionHidden = false
+                        savePanel.allowsOtherFileTypes = false
+                        savePanel.title = "Save Version JSON"
+                        savePanel.directoryURL = minecraftDirectory?.appendingPathComponent("versions")
+                        savePanel.nameFieldLabel = "File name:"
+                        
+                        let response = savePanel.runModal()
+                        if let url = savePanel.url {
+                            try? jsonData?.write(to: url)
+                        }
+                    }.disabled(jsonData == nil)
                 }
             }
         }
