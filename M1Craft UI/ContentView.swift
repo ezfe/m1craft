@@ -8,12 +8,35 @@
 import SwiftUI
 import InstallationManager
 
+extension VersionManifest.VersionType: RawRepresentable {
+    public init?(rawValue: String) {
+        if rawValue == "__release" {
+            self = .release
+        } else if rawValue == "__snapshot" {
+            self = .snapshot
+        } else {
+            self = .custom(rawValue)
+        }
+    }
+
+    public var rawValue: String {
+        switch self {
+            case .release:
+                return "__release"
+            case .snapshot:
+                return "__snapshot"
+            case .custom(let version):
+                return version
+        }
+    }
+}
+
 struct ContentView: View {
     var credentials: SignInResult
     
     @State
     var availableVersions: [String] = []
-    @State
+    @AppStorage("selected-version")
     var selectedVersion: VersionManifest.VersionType = .release
     
     @State
