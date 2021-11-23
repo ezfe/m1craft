@@ -6,6 +6,8 @@ This tool does **not** modify either the Minecraft JAR or LWJGL JARs. The Minecr
 
 Head on over to the [releases](https://github.com/ezfe/m1craft/releases) page to download.
 
+**Warning:** Do not use the Minecraft fullscreen option, instead use the system one (green button). If you've used the Minecraft one and it's crashing, follow the steps [here](https://github.com/ezfe/m1craft/issues/5#issuecomment-972287174)
+
 <img width="612" alt="Screen Shot 2021-11-16 at 9 29 01 PM" src="https://user-images.githubusercontent.com/1449259/142104275-2a26e5c8-8ef0-4bf1-a3a2-dd5938650b52.png">
 
 Note: 1.16 and earlier are not supported at this time, but may come later. If you would like to play 1.16 natively on Apple Silicon and have not yet found a way to do so, send me a message and I will investigate this.
