@@ -67,6 +67,8 @@ struct ContentView: View {
                 Picker(selection: $selectedVersion, label: Text("Auto Version:")) {
                     Text("Latest Release").tag(VersionManifest.VersionType.release)
                     Text("Latest Snapshot").tag(VersionManifest.VersionType.snapshot)
+                    Text("1.17.1").tag(VersionManifest.VersionType.custom("1.17.1"))
+                    Text("1.18").tag(VersionManifest.VersionType.custom("1.18"))
                 }
                 .pickerStyle(.radioGroup)
 
@@ -201,7 +203,6 @@ struct ContentView: View {
             let launchArgumentsResults = installationManager.launchArguments(with: credentials)
             switch launchArgumentsResults {
                 case .success(let args):
-                    print(args)
                     // java
                     let javaBundle = installationManager.javaBundle!
                     let javaExec = javaBundle.appendingPathComponent("Contents/Home/bin/java", isDirectory: false)
@@ -211,12 +212,12 @@ struct ContentView: View {
                     proc.arguments = args
                     proc.currentDirectoryURL = installationManager.baseDirectory
 
-                    let pipe = Pipe()
-                    proc.standardOutput = pipe
-
-//                    print(javaExec.absoluteString)
-//                    print(args.joined(separator: " "))
-//                    print(installationManager.baseDirectory.absoluteString)
+//                    let pipe = Pipe()
+//                    proc.standardOutput = pipe
+                    
+                    print(javaExec.absoluteString)
+                    print(args.joined(separator: " "))
+                    print(installationManager.baseDirectory.absoluteString)
                     
                     message = "Starting game..."
                     proc.launch()
