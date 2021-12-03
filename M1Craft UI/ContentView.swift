@@ -7,6 +7,7 @@
 
 import SwiftUI
 import InstallationManager
+import Common
 
 extension VersionManifest.VersionType: RawRepresentable {
     public init?(rawValue: String) {
@@ -101,9 +102,12 @@ struct ContentView: View {
                 ProgressView("Java Runtime and Main Jar", value: javaDownload)
                 ProgressView("Java Libraries", value: libraryDownload)
                 ProgressView("Assets", value: assetDownload)
-                if let message = message {
-                    Text(message)
-                }
+            }
+            
+            if let message = message, !message.contains("Starting game") {
+                Divider()
+                Text(message)
+                Text("If a network/time-out error occurred, simply re-start the game. It will resume where it left off")
             }
         }
         .padding()
@@ -119,6 +123,7 @@ struct ContentView: View {
     
     func runGame() {
         startedDownloading = true
+        message = nil
 
         Task {
             let installationManager = try InstallationManager()
@@ -157,7 +162,35 @@ struct ContentView: View {
                     libraryDownload = progress
                 }
             } catch let err {
-                message = "If a network/time-out error occurred, simply restart the program. It will resume where it left off: \(err.localizedDescription)"
+                
+                startedDownloading = false
+                javaDownload = 0
+                libraryDownload = 0
+                assetDownload = 0
+
+                if let cerr = err as? CError {
+                    switch cerr {
+                        case .networkError(let errorMessage):
+                            message = "Network Error: \(errorMessage)"
+                        case .encodingError(let errorMessage):
+                            message = "Encoding Error: \(errorMessage)"
+                        case .decodingError(let errorMessage):
+                            message = "Decoding Error: \(errorMessage)"
+                        case .filesystemError(let errorMessage):
+                            message = "Filesystem Error: \(errorMessage)"
+                        case .stateError(let errorMessage):
+                            message = "State Error: \(errorMessage)"
+                        case .sha1Error(let expected, let found):
+                            message = "SHA1 Mismatch: Expected \(expected) but found \(found)"
+                        case .unknownVersion(let version):
+                            message = "Unknown Version: \(version)"
+                        case .unknownError(let errorMessage):
+                            message = errorMessage
+                    }
+                } else {
+                    message = err.localizedDescription
+                }
+
                 return
             }
 
@@ -181,6 +214,10 @@ struct ContentView: View {
                     let pipe = Pipe()
                     proc.standardOutput = pipe
 
+//                    print(javaExec.absoluteString)
+//                    print(args.joined(separator: " "))
+//                    print(installationManager.baseDirectory.absoluteString)
+                    
                     message = "Starting game..."
                     proc.launch()
 
