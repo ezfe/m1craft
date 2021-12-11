@@ -68,7 +68,7 @@ struct ContentView: View {
                     Text("Latest Release").tag(VersionManifest.VersionType.release)
                     Text("Latest Snapshot").tag(VersionManifest.VersionType.snapshot)
                     Text("1.17.1").tag(VersionManifest.VersionType.custom("1.17.1"))
-                    Text("1.18").tag(VersionManifest.VersionType.custom("1.18"))
+//                    Text("1.18.1").tag(VersionManifest.VersionType.custom("1.18.1"))
                 }
                 .pickerStyle(.radioGroup)
 
