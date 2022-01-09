@@ -200,7 +200,7 @@ struct ContentView: View {
             
             try installationManager.copyNatives()
             
-            let launchArgumentsResults = installationManager.launchArguments(with: credentials)
+            let launchArgumentsResults = installationManager.launchArguments(with: credentials, memory: 3)
             switch launchArgumentsResults {
                 case .success(let args):
                     // java
