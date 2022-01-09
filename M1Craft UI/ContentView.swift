@@ -40,6 +40,9 @@ struct ContentView: View {
     @AppStorage("selected-version")
     var selectedVersion: VersionManifest.VersionType = .release
     
+    @AppStorage("selected-memory-allocation")
+    var selectedMemoryAllocation: Int = 3
+    
     @State
     var startedDownloading = false
     
@@ -200,7 +203,10 @@ struct ContentView: View {
             
             try installationManager.copyNatives()
             
-            let launchArgumentsResults = installationManager.launchArguments(with: credentials, memory: 3)
+            let launchArgumentsResults = installationManager.launchArguments(
+                with: credentials,
+                memory: UInt8(selectedMemoryAllocation)
+            )
             switch launchArgumentsResults {
                 case .success(let args):
                     // java
