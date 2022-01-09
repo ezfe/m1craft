@@ -15,5 +15,9 @@
 			</array>
 		</dict>
 	</array>
+	<key>SUFeedURL</key>
+	<string>https://f001.backblazeb2.com/file/minecraft-jar-command/appcast/appcast</string>
+	<key>SUPublicEDKey</key>
+	<string>tTfJT2EdZII20PCJ41k439wI+pehbxcOPdY2fToSQKo=</string>
 </dict>
 </plist>

@@ -27,6 +27,9 @@ struct M1Craft_UIApp: App {
     @State
     var jsonData: Data? = nil
     
+    @StateObject
+    var updaterViewModel = UpdaterViewModel()
+    
     var body: some Scene {
         WindowGroup {
             VStack {
@@ -63,6 +66,9 @@ struct M1Craft_UIApp: App {
                    maxHeight: .infinity)
         }
         .commands {
+            CommandGroup(after: .appInfo) {
+                CheckForUpdatesView(updaterViewModel: updaterViewModel)
+            }
             CommandGroup(after: .importExport) {
                 Group {
                     if launcherDirectory == nil && minecraftDirectory == nil {

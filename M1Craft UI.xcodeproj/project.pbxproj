@@ -14,6 +14,8 @@
 		6604C27B271E1FFC0024898E /* InstallationManager in Frameworks */ = {isa = PBXBuildFile; productRef = 6604C27A271E1FFC0024898E /* InstallationManager */; };
 		66648ECC2742DCE5005CD396 /* RefreshAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */; };
 		66648ECE27431764005CD396 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66648ECD27431764005CD396 /* Constants.swift */; };
+		66B9CBFB278B3265001A59E2 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 66B9CBFA278B3265001A59E2 /* Sparkle */; };
+		66B9CBFD278B327A001A59E2 /* Sparkle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B9CBFC278B327A001A59E2 /* Sparkle.swift */; };
 		66D996812741C8E3000D53DD /* Preflight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D996802741C8E3000D53DD /* Preflight.swift */; };
 		66F13B1B273DCEA9002C297B /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F13B1A273DCEA9002C297B /* AuthView.swift */; };
 /* End PBXBuildFile section */
@@ -27,6 +29,7 @@
 		6604C277271E1FD80024898E /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshAuthView.swift; sourceTree = "<group>"; };
 		66648ECD27431764005CD396 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		66B9CBFC278B327A001A59E2 /* Sparkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparkle.swift; sourceTree = "<group>"; };
 		66D996802741C8E3000D53DD /* Preflight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preflight.swift; sourceTree = "<group>"; };
 		66F13B19273DCE35002C297B /* M1Craft-UI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "M1Craft-UI-Info.plist"; sourceTree = SOURCE_ROOT; };
 		66F13B1A273DCEA9002C297B /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
@@ -38,6 +41,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6604C27B271E1FFC0024898E /* InstallationManager in Frameworks */,
+				66B9CBFB278B3265001A59E2 /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,10 +73,11 @@
 				66F13B1A273DCEA9002C297B /* AuthView.swift */,
 				66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */,
 				6604C277271E1FD80024898E /* ContentView.swift */,
+				66648ECD27431764005CD396 /* Constants.swift */,
+				66B9CBFC278B327A001A59E2 /* Sparkle.swift */,
 				6604C268271E1EF90024898E /* Assets.xcassets */,
 				6604C26D271E1EF90024898E /* M1Craft_UI.entitlements */,
 				6604C26A271E1EF90024898E /* Preview Content */,
-				66648ECD27431764005CD396 /* Constants.swift */,
 			);
 			path = "M1Craft UI";
 			sourceTree = "<group>";
@@ -103,6 +108,7 @@
 			name = "M1Craft UI";
 			packageProductDependencies = (
 				6604C27A271E1FFC0024898E /* InstallationManager */,
+				66B9CBFA278B3265001A59E2 /* Sparkle */,
 			);
 			productName = "M1Craft UI";
 			productReference = 6604C261271E1EF80024898E /* M1Craft UI.app */;
@@ -134,6 +140,7 @@
 			mainGroup = 6604C258271E1EF80024898E;
 			packageReferences = (
 				6604C279271E1FFC0024898E /* XCRemoteSwiftPackageReference "minecraft-jar-command" */,
+				66B9CBF9278B3265001A59E2 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			productRefGroup = 6604C262271E1EF80024898E /* Products */;
 			projectDirPath = "";
@@ -167,6 +174,7 @@
 				66F13B1B273DCEA9002C297B /* AuthView.swift in Sources */,
 				66D996812741C8E3000D53DD /* Preflight.swift in Sources */,
 				66648ECE27431764005CD396 /* Constants.swift in Sources */,
+				66B9CBFD278B327A001A59E2 /* Sparkle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,7 +307,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"M1Craft UI/Preview Content\"";
 				DEVELOPMENT_TEAM = 39QG79F7FD;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -313,7 +321,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.1.6;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ezekiel.m1craft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -332,7 +340,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"M1Craft UI/Preview Content\"";
 				DEVELOPMENT_TEAM = 39QG79F7FD;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -346,7 +354,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.1.6;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ezekiel.m1craft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -386,6 +394,14 @@
 				kind = branch;
 			};
 		};
+		66B9CBF9278B3265001A59E2 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -393,6 +409,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6604C279271E1FFC0024898E /* XCRemoteSwiftPackageReference "minecraft-jar-command" */;
 			productName = InstallationManager;
+		};
+		66B9CBFA278B3265001A59E2 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 66B9CBF9278B3265001A59E2 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
