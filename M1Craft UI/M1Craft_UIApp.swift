@@ -60,6 +60,9 @@ struct M1Craft_UIApp: App {
                     AuthView(credentials: $credentials)
                 }
             }
+            .onAppear {
+                NSWindow.allowsAutomaticWindowTabbing = false
+            }
             .frame(minWidth: 500,
                    maxWidth: .infinity,
                    minHeight: 350,
@@ -70,40 +73,40 @@ struct M1Craft_UIApp: App {
                 CheckForUpdatesView(updaterViewModel: updaterViewModel)
             }
             CommandGroup(after: .importExport) {
-                Group {
-                    if launcherDirectory == nil && minecraftDirectory == nil {
-                        Text("Run the game once to access directories")
+                if launcherDirectory == nil || minecraftDirectory == nil || jsonData == nil {
+                    Group {
+                        Text("Run the game to access directories or export JSON data")
                     }
-                    Button("Open launcher directory") {
-                        if let ld = launcherDirectory {
-                            NSWorkspace.shared.open(ld)
-                        }
-                    }.disabled(launcherDirectory == nil)
-                    Button("Open minecraft directory") {
-                        if let md = minecraftDirectory {
-                            NSWorkspace.shared.open(md)
-                        }
-                    }.disabled(minecraftDirectory == nil)
-                }
-                Group {
-                    if jsonData == nil {
-                        Text("Run the game to export JSON data")
+                } else {
+                    Group {
+                        Button("Open launcher directory") {
+                            if let ld = launcherDirectory {
+                                NSWorkspace.shared.open(ld)
+                            }
+                        }.disabled(launcherDirectory == nil)
+                        Button("Open minecraft directory") {
+                            if let md = minecraftDirectory {
+                                NSWorkspace.shared.open(md)
+                            }
+                        }.disabled(minecraftDirectory == nil)
                     }
-                    Button("Export modified version JSON...") {
-                        let savePanel = NSSavePanel()
-                        savePanel.allowedContentTypes = [.json]
-                        savePanel.canCreateDirectories = true
-                        savePanel.isExtensionHidden = false
-                        savePanel.allowsOtherFileTypes = false
-                        savePanel.title = "Save Version JSON"
-                        savePanel.directoryURL = minecraftDirectory?.appendingPathComponent("versions")
-                        savePanel.nameFieldLabel = "File name:"
-                        
-                        let response = savePanel.runModal()
-                        if let url = savePanel.url {
-                            try? jsonData?.write(to: url)
-                        }
-                    }.disabled(jsonData == nil)
+                    Group {
+                        Button("Export modified version JSON...") {
+                            let savePanel = NSSavePanel()
+                            savePanel.allowedContentTypes = [.json]
+                            savePanel.canCreateDirectories = true
+                            savePanel.isExtensionHidden = false
+                            savePanel.allowsOtherFileTypes = false
+                            savePanel.title = "Save Version JSON"
+                            savePanel.directoryURL = minecraftDirectory?.appendingPathComponent("versions")
+                            savePanel.nameFieldLabel = "File name:"
+                            
+                            let response = savePanel.runModal()
+                            if let url = savePanel.url {
+                                try? jsonData?.write(to: url)
+                            }
+                        }.disabled(jsonData == nil)
+                    }
                 }
             }
         }

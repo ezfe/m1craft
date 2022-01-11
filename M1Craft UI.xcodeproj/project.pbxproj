@@ -29,6 +29,7 @@
 		6604C277271E1FD80024898E /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshAuthView.swift; sourceTree = "<group>"; };
 		66648ECD27431764005CD396 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		66B8AA03278D299D00E41FA1 /* M1Craft UIDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "M1Craft UIDebug.entitlements"; sourceTree = "<group>"; };
 		66B9CBFC278B327A001A59E2 /* Sparkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparkle.swift; sourceTree = "<group>"; };
 		66D996802741C8E3000D53DD /* Preflight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preflight.swift; sourceTree = "<group>"; };
 		66F13B19273DCE35002C297B /* M1Craft-UI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "M1Craft-UI-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -67,6 +68,7 @@
 		6604C263271E1EF80024898E /* M1Craft UI */ = {
 			isa = PBXGroup;
 			children = (
+				66B8AA03278D299D00E41FA1 /* M1Craft UIDebug.entitlements */,
 				66F13B19273DCE35002C297B /* M1Craft-UI-Info.plist */,
 				6604C264271E1EF80024898E /* M1Craft_UIApp.swift */,
 				66D996802741C8E3000D53DD /* Preflight.swift */,
@@ -303,11 +305,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "M1Craft UI/M1Craft_UI.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "M1Craft UI/M1Craft UIDebug.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"M1Craft UI/Preview Content\"";
 				DEVELOPMENT_TEAM = 39QG79F7FD;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -321,7 +323,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ezekiel.m1craft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -340,7 +342,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"M1Craft UI/Preview Content\"";
 				DEVELOPMENT_TEAM = 39QG79F7FD;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -354,7 +356,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ezekiel.m1craft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
