@@ -54,6 +54,8 @@ struct Preflight: View {
             let decoded = try? JSONDecoder().decode(PreflightResponse.self, from: data)
             
             guard let decoded = decoded else {
+                // Don't interrupt user if the message
+                // fails to download or decode.
                 preflightCompleted = true
                 return
             }

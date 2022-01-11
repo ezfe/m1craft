@@ -14,7 +14,7 @@
 		66648ECC2742DCE5005CD396 /* RefreshAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */; };
 		66648ECE27431764005CD396 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66648ECD27431764005CD396 /* Constants.swift */; };
 		66B9CBFB278B3265001A59E2 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 66B9CBFA278B3265001A59E2 /* Sparkle */; };
-		66B9CBFD278B327A001A59E2 /* Sparkle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B9CBFC278B327A001A59E2 /* Sparkle.swift */; };
+		66B9CBFD278B327A001A59E2 /* SparkleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B9CBFC278B327A001A59E2 /* SparkleView.swift */; };
 		66D996812741C8E3000D53DD /* Preflight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D996802741C8E3000D53DD /* Preflight.swift */; };
 		66F13B1B273DCEA9002C297B /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F13B1A273DCEA9002C297B /* AuthView.swift */; };
 /* End PBXBuildFile section */
@@ -28,7 +28,7 @@
 		66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshAuthView.swift; sourceTree = "<group>"; };
 		66648ECD27431764005CD396 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		66B8AA03278D299D00E41FA1 /* M1Craft-Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "M1Craft-Debug.entitlements"; sourceTree = "<group>"; };
-		66B9CBFC278B327A001A59E2 /* Sparkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparkle.swift; sourceTree = "<group>"; };
+		66B9CBFC278B327A001A59E2 /* SparkleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparkleView.swift; sourceTree = "<group>"; };
 		66D996802741C8E3000D53DD /* Preflight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preflight.swift; sourceTree = "<group>"; };
 		66F13B19273DCE35002C297B /* M1Craft-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "M1Craft-Info.plist"; sourceTree = SOURCE_ROOT; };
 		66F13B1A273DCEA9002C297B /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
@@ -47,6 +47,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6603695D278E3D4C000D9EFF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				66D996802741C8E3000D53DD /* Preflight.swift */,
+				66F13B1A273DCEA9002C297B /* AuthView.swift */,
+				66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */,
+				6604C277271E1FD80024898E /* ContentView.swift */,
+				66B9CBFC278B327A001A59E2 /* SparkleView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		6604C258271E1EF80024898E = {
 			isa = PBXGroup;
 			children = (
@@ -68,13 +80,9 @@
 			children = (
 				66B8AA03278D299D00E41FA1 /* M1Craft-Debug.entitlements */,
 				66F13B19273DCE35002C297B /* M1Craft-Info.plist */,
+				6603695D278E3D4C000D9EFF /* Views */,
 				6604C264271E1EF80024898E /* M1Craft App.swift */,
-				66D996802741C8E3000D53DD /* Preflight.swift */,
-				66F13B1A273DCEA9002C297B /* AuthView.swift */,
-				66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */,
-				6604C277271E1FD80024898E /* ContentView.swift */,
 				66648ECD27431764005CD396 /* Constants.swift */,
-				66B9CBFC278B327A001A59E2 /* Sparkle.swift */,
 				6604C268271E1EF90024898E /* Assets.xcassets */,
 				6604C26D271E1EF90024898E /* M1Craft.entitlements */,
 			);
@@ -164,7 +172,7 @@
 				66F13B1B273DCEA9002C297B /* AuthView.swift in Sources */,
 				66D996812741C8E3000D53DD /* Preflight.swift in Sources */,
 				66648ECE27431764005CD396 /* Constants.swift in Sources */,
-				66B9CBFD278B327A001A59E2 /* Sparkle.swift in Sources */,
+				66B9CBFD278B327A001A59E2 /* SparkleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
