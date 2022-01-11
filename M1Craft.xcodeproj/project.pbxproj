@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6604C265271E1EF80024898E /* M1Craft_UIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6604C264271E1EF80024898E /* M1Craft_UIApp.swift */; };
+		6604C265271E1EF80024898E /* M1Craft App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6604C264271E1EF80024898E /* M1Craft App.swift */; };
 		6604C269271E1EF90024898E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6604C268271E1EF90024898E /* Assets.xcassets */; };
-		6604C26C271E1EF90024898E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6604C26B271E1EF90024898E /* Preview Assets.xcassets */; };
 		6604C278271E1FD80024898E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6604C277271E1FD80024898E /* ContentView.swift */; };
 		6604C27B271E1FFC0024898E /* InstallationManager in Frameworks */ = {isa = PBXBuildFile; productRef = 6604C27A271E1FFC0024898E /* InstallationManager */; };
 		66648ECC2742DCE5005CD396 /* RefreshAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */; };
@@ -21,18 +20,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6604C261271E1EF80024898E /* M1Craft UI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "M1Craft UI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6604C264271E1EF80024898E /* M1Craft_UIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M1Craft_UIApp.swift; sourceTree = "<group>"; };
+		6604C261271E1EF80024898E /* M1Craft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = M1Craft.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6604C264271E1EF80024898E /* M1Craft App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "M1Craft App.swift"; sourceTree = "<group>"; };
 		6604C268271E1EF90024898E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6604C26B271E1EF90024898E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		6604C26D271E1EF90024898E /* M1Craft_UI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = M1Craft_UI.entitlements; sourceTree = "<group>"; };
+		6604C26D271E1EF90024898E /* M1Craft.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = M1Craft.entitlements; sourceTree = "<group>"; };
 		6604C277271E1FD80024898E /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshAuthView.swift; sourceTree = "<group>"; };
 		66648ECD27431764005CD396 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		66B8AA03278D299D00E41FA1 /* M1Craft UIDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "M1Craft UIDebug.entitlements"; sourceTree = "<group>"; };
+		66B8AA03278D299D00E41FA1 /* M1Craft-Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "M1Craft-Debug.entitlements"; sourceTree = "<group>"; };
 		66B9CBFC278B327A001A59E2 /* Sparkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparkle.swift; sourceTree = "<group>"; };
 		66D996802741C8E3000D53DD /* Preflight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preflight.swift; sourceTree = "<group>"; };
-		66F13B19273DCE35002C297B /* M1Craft-UI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "M1Craft-UI-Info.plist"; sourceTree = SOURCE_ROOT; };
+		66F13B19273DCE35002C297B /* M1Craft-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "M1Craft-Info.plist"; sourceTree = SOURCE_ROOT; };
 		66F13B1A273DCEA9002C297B /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -52,7 +50,7 @@
 		6604C258271E1EF80024898E = {
 			isa = PBXGroup;
 			children = (
-				6604C263271E1EF80024898E /* M1Craft UI */,
+				6604C263271E1EF80024898E /* M1Craft */,
 				6604C262271E1EF80024898E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,17 +58,17 @@
 		6604C262271E1EF80024898E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6604C261271E1EF80024898E /* M1Craft UI.app */,
+				6604C261271E1EF80024898E /* M1Craft.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6604C263271E1EF80024898E /* M1Craft UI */ = {
+		6604C263271E1EF80024898E /* M1Craft */ = {
 			isa = PBXGroup;
 			children = (
-				66B8AA03278D299D00E41FA1 /* M1Craft UIDebug.entitlements */,
-				66F13B19273DCE35002C297B /* M1Craft-UI-Info.plist */,
-				6604C264271E1EF80024898E /* M1Craft_UIApp.swift */,
+				66B8AA03278D299D00E41FA1 /* M1Craft-Debug.entitlements */,
+				66F13B19273DCE35002C297B /* M1Craft-Info.plist */,
+				6604C264271E1EF80024898E /* M1Craft App.swift */,
 				66D996802741C8E3000D53DD /* Preflight.swift */,
 				66F13B1A273DCEA9002C297B /* AuthView.swift */,
 				66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */,
@@ -78,26 +76,17 @@
 				66648ECD27431764005CD396 /* Constants.swift */,
 				66B9CBFC278B327A001A59E2 /* Sparkle.swift */,
 				6604C268271E1EF90024898E /* Assets.xcassets */,
-				6604C26D271E1EF90024898E /* M1Craft_UI.entitlements */,
-				6604C26A271E1EF90024898E /* Preview Content */,
+				6604C26D271E1EF90024898E /* M1Craft.entitlements */,
 			);
-			path = "M1Craft UI";
-			sourceTree = "<group>";
-		};
-		6604C26A271E1EF90024898E /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				6604C26B271E1EF90024898E /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
+			path = M1Craft;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6604C260271E1EF80024898E /* M1Craft UI */ = {
+		6604C260271E1EF80024898E /* M1Craft */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6604C270271E1EF90024898E /* Build configuration list for PBXNativeTarget "M1Craft UI" */;
+			buildConfigurationList = 6604C270271E1EF90024898E /* Build configuration list for PBXNativeTarget "M1Craft" */;
 			buildPhases = (
 				6604C25D271E1EF80024898E /* Sources */,
 				6604C25E271E1EF80024898E /* Frameworks */,
@@ -107,13 +96,13 @@
 			);
 			dependencies = (
 			);
-			name = "M1Craft UI";
+			name = M1Craft;
 			packageProductDependencies = (
 				6604C27A271E1FFC0024898E /* InstallationManager */,
 				66B9CBFA278B3265001A59E2 /* Sparkle */,
 			);
 			productName = "M1Craft UI";
-			productReference = 6604C261271E1EF80024898E /* M1Craft UI.app */;
+			productReference = 6604C261271E1EF80024898E /* M1Craft.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -131,7 +120,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6604C25C271E1EF80024898E /* Build configuration list for PBXProject "M1Craft UI" */;
+			buildConfigurationList = 6604C25C271E1EF80024898E /* Build configuration list for PBXProject "M1Craft" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -148,7 +137,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6604C260271E1EF80024898E /* M1Craft UI */,
+				6604C260271E1EF80024898E /* M1Craft */,
 			);
 		};
 /* End PBXProject section */
@@ -158,7 +147,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6604C26C271E1EF90024898E /* Preview Assets.xcassets in Resources */,
 				6604C269271E1EF90024898E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -171,7 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				66648ECC2742DCE5005CD396 /* RefreshAuthView.swift in Sources */,
-				6604C265271E1EF80024898E /* M1Craft_UIApp.swift in Sources */,
+				6604C265271E1EF80024898E /* M1Craft App.swift in Sources */,
 				6604C278271E1FD80024898E /* ContentView.swift in Sources */,
 				66F13B1B273DCEA9002C297B /* AuthView.swift in Sources */,
 				66D996812741C8E3000D53DD /* Preflight.swift in Sources */,
@@ -305,19 +293,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "M1Craft UI/M1Craft UIDebug.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "M1Craft/M1Craft-Debug.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 15;
-				DEVELOPMENT_ASSET_PATHS = "\"M1Craft UI/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 39QG79F7FD;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "M1Craft-UI-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -338,19 +325,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "M1Craft UI/M1Craft_UI.entitlements";
+				CODE_SIGN_ENTITLEMENTS = M1Craft/M1Craft.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 15;
-				DEVELOPMENT_ASSET_PATHS = "\"M1Craft UI/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 39QG79F7FD;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "M1Craft-UI-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -367,7 +353,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6604C25C271E1EF80024898E /* Build configuration list for PBXProject "M1Craft UI" */ = {
+		6604C25C271E1EF80024898E /* Build configuration list for PBXProject "M1Craft" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6604C26E271E1EF90024898E /* Debug */,
@@ -376,7 +362,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6604C270271E1EF90024898E /* Build configuration list for PBXNativeTarget "M1Craft UI" */ = {
+		6604C270271E1EF90024898E /* Build configuration list for PBXNativeTarget "M1Craft" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6604C271271E1EF90024898E /* Debug */,

@@ -9,7 +9,7 @@ import SwiftUI
 import InstallationManager
 
 @main
-struct M1Craft_UIApp: App {
+struct M1CraftApp: App {
     
     @State
     var preflightCompleted = false
