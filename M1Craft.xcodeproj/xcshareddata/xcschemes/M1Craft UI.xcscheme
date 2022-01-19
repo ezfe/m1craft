@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6604C260271E1EF80024898E"
-               BuildableName = "M1Craft UI.app"
+               BuildableName = "M1Craft.app"
                BlueprintName = "M1Craft"
                ReferencedContainer = "container:M1Craft.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6604C260271E1EF80024898E"
-            BuildableName = "M1Craft UI.app"
+            BuildableName = "M1Craft.app"
             BlueprintName = "M1Craft"
             ReferencedContainer = "container:M1Craft.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6604C260271E1EF80024898E"
-            BuildableName = "M1Craft UI.app"
+            BuildableName = "M1Craft.app"
             BlueprintName = "M1Craft"
             ReferencedContainer = "container:M1Craft.xcodeproj">
          </BuildableReference>

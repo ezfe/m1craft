@@ -80,8 +80,8 @@
 			children = (
 				66B8AA03278D299D00E41FA1 /* M1Craft-Debug.entitlements */,
 				66F13B19273DCE35002C297B /* M1Craft-Info.plist */,
-				6603695D278E3D4C000D9EFF /* Views */,
 				6604C264271E1EF80024898E /* M1Craft App.swift */,
+				6603695D278E3D4C000D9EFF /* Views */,
 				66648ECD27431764005CD396 /* Constants.swift */,
 				6604C268271E1EF90024898E /* Assets.xcassets */,
 				6604C26D271E1EF90024898E /* M1Craft.entitlements */,

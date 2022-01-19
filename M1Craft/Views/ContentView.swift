@@ -36,7 +36,7 @@ struct ContentView: View {
     var credentials: SignInResult
     
     @State
-    var availableVersions: [String] = []
+    var availableVersions: [VersionManifest.VersionType] = [.release, .snapshot]
     @AppStorage("selected-version")
     var selectedVersion: VersionManifest.VersionType = .release
     
@@ -70,19 +70,24 @@ struct ContentView: View {
                 Picker(selection: $selectedVersion, label: Text("Auto Version:")) {
                     Text("Latest Release").tag(VersionManifest.VersionType.release)
                     Text("Latest Snapshot").tag(VersionManifest.VersionType.snapshot)
-                    Text("1.17.1").tag(VersionManifest.VersionType.custom("1.17.1"))
-//                    Text("1.18.1").tag(VersionManifest.VersionType.custom("1.18.1"))
                 }
                 .pickerStyle(.radioGroup)
 
-                /*
-                Picker(selection: $selectedVersion, label: Text("Custom Version:")) {
-                    ForEach(availableVersions, id: \.hashValue) { v in
-                        Text(v).tag(VersionManifest.VersionType.custom(v))
+                if !availableVersions.isEmpty {
+                    Picker(selection: $selectedVersion, label: Text("Custom Version:")) {
+                        ForEach(availableVersions, id: \.hashValue) { v in
+                            switch v {
+                                case .custom(let s):
+                                    Text(s).tag(v)
+                                case .snapshot:
+                                    Text("Latest Snapshot").tag(v)
+                                case .release:
+                                    Text("Latest Release").tag(v)
+                            }
+                        }
                     }
+                    .pickerStyle(.menu)
                 }
-                .pickerStyle(.menu)
-                 */
                 
                 Button {
                     runGame()
@@ -118,10 +123,14 @@ struct ContentView: View {
         .padding()
         .onAppear {
             Task {
-                let installationManager = try InstallationManager()
-                availableVersions = try await installationManager
-                    .availableVersions(.mojang)
-                    .map { $0.id }
+                let manifest = try await VersionManifest.download()
+                if let _1165_releasetime = manifest.versions.first(where: { $0.id == "1.16.5" })?.releaseTime {
+                    availableVersions = [.release, .snapshot]
+                    let newVersions = manifest.versions
+                        .filter { $0.releaseTime >= _1165_releasetime }
+                        .map { VersionManifest.VersionType.custom($0.id) }
+                    availableVersions.append(contentsOf: newVersions)
+                }
             }
         }
     }
@@ -132,39 +141,84 @@ struct ContentView: View {
 
         Task {
             let installationManager = try InstallationManager()
-            installationManager.use(version: selectedVersion)
             
             print(installationManager.baseDirectory.path)
             
             launcherDirectory = installationManager.baseDirectory
             minecraftDirectory = installationManager.gameDirectory
             
+            let clientJar: URL
+            
             do {
-                let versionInfo = try await installationManager.downloadVersionInfo(.mojang)
-                guard versionInfo.minimumLauncherVersion >= 21 else {
-                    message = "Unfortunately, \(versionInfo.id) isn't available from this utility. This utility does not work with versions prior to 1.13"
+                let manifest = try await VersionManifest.download()
+                let metadata = try manifest.metadata(for: selectedVersion)
+                
+                let package = try await metadata.package(patched: true)
+                guard package.minimumLauncherVersion >= 21 else {
+                    message = "Unfortunately, \(package.id) isn't available from this utility. This utility does not work with versions prior to 1.13"
                     return
                 }
                 
-                if let package = installationManager.version {
-                    let encoder = JSONEncoder()
-                    encoder.dateEncodingStrategy = .iso8601
-                    jsonData = try? encoder.encode(package)
-                }
+                let encoder = JSONEncoder()
+                encoder.dateEncodingStrategy = .iso8601
+                jsonData = try? encoder.encode(package)
                 
                 javaDownload = 0.10
                 
-                try await installationManager.downloadJar()
+                clientJar = try await installationManager.downloadJar(for: package)
                 javaDownload = 0.4
 
-                let _ = try await installationManager.downloadJava(.mojang)
+                let _ = try await installationManager.downloadJava(for: package)
                 javaDownload = 1
                 
-                try await installationManager.downloadAssets { progress in
+                try await installationManager.downloadAssets(for: package, progress: { progress in
                     assetDownload = progress
-                }
-                let _ = try await installationManager.downloadLibraries { progress in
+                })
+                let _ = try await installationManager.downloadLibraries(for: package, progress: { progress in
                     libraryDownload = progress
+                })
+
+                print("Queued up downloads")
+                
+                try installationManager.copyNatives()
+                
+                let launchArgumentsResults = try await installationManager.launchArguments(
+                    for: package,
+                    with: credentials,
+                    clientJar: clientJar,
+                    memory: UInt8(selectedMemoryAllocation)
+                )
+                switch launchArgumentsResults {
+                    case .success(let args):
+                        // java
+                        let javaBundle = installationManager.javaBundle!
+                        let javaExec = javaBundle.appendingPathComponent("Contents/Home/bin/java", isDirectory: false)
+                        
+                        let proc = Process()
+                        proc.executableURL = javaExec
+                        proc.arguments = args
+                        proc.currentDirectoryURL = installationManager.baseDirectory
+
+    //                    let pipe = Pipe()
+    //                    proc.standardOutput = pipe
+                        
+                        print(javaExec.absoluteString)
+                        print(args.joined(separator: " "))
+                        print(installationManager.baseDirectory.absoluteString)
+                        
+                        message = "Starting game..."
+                        proc.launch()
+
+                        proc.waitUntilExit()
+                        
+                        startedDownloading = false
+                        javaDownload = 0
+                        libraryDownload = 0
+                        assetDownload = 0
+                        message = nil
+                    case .failure(let error):
+                        print(error)
+                        return
                 }
             } catch let err {
                 
@@ -199,46 +253,6 @@ struct ContentView: View {
                 return
             }
 
-            print("Queued up downloads")
-            
-            try installationManager.copyNatives()
-            
-            let launchArgumentsResults = installationManager.launchArguments(
-                with: credentials,
-                memory: UInt8(selectedMemoryAllocation)
-            )
-            switch launchArgumentsResults {
-                case .success(let args):
-                    // java
-                    let javaBundle = installationManager.javaBundle!
-                    let javaExec = javaBundle.appendingPathComponent("Contents/Home/bin/java", isDirectory: false)
-                    
-                    let proc = Process()
-                    proc.executableURL = javaExec
-                    proc.arguments = args
-                    proc.currentDirectoryURL = installationManager.baseDirectory
-
-//                    let pipe = Pipe()
-//                    proc.standardOutput = pipe
-                    
-                    print(javaExec.absoluteString)
-                    print(args.joined(separator: " "))
-                    print(installationManager.baseDirectory.absoluteString)
-                    
-                    message = "Starting game..."
-                    proc.launch()
-
-                    proc.waitUntilExit()
-                    
-                    startedDownloading = false
-                    javaDownload = 0
-                    libraryDownload = 0
-                    assetDownload = 0
-                    message = nil
-                case .failure(let error):
-                    print(error)
-                    return
-            }
         }
     }
 }
