@@ -122,10 +122,10 @@ struct ContentView: View {
         .onAppear {
             Task {
                 let manifest = try await VersionManifest.download()
-                if let _1165_releasetime = manifest.versions.first(where: { $0.id == "1.16.5" })?.releaseTime {
+                if let _earliestReleaseTime = manifest.versions.first(where: { $0.id == "19w11a" })?.releaseTime {
                     availableVersions = [.release, .snapshot]
                     let newVersions = manifest.versions
-                        .filter { $0.releaseTime >= _1165_releasetime }
+                        .filter { $0.releaseTime >= _earliestReleaseTime }
                         .map { VersionManifest.VersionType.custom($0.id) }
                     availableVersions.append(contentsOf: newVersions)
                 }
