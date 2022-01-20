@@ -37,6 +37,7 @@ struct ContentView: View {
     
     @State
     var availableVersions: [VersionManifest.VersionType] = [.release, .snapshot]
+
     @AppStorage("selected-version")
     var selectedVersion: VersionManifest.VersionType = .release
     
@@ -60,9 +61,6 @@ struct ContentView: View {
     var launcherDirectory: URL?
     @Binding
     var minecraftDirectory: URL?
-    
-    @Binding
-    var jsonData: Data?
     
     var body: some View {
         VStack {
@@ -158,11 +156,7 @@ struct ContentView: View {
                     message = "Unfortunately, \(package.id) isn't available from this utility. This utility does not work with versions prior to 1.13"
                     return
                 }
-                
-                let encoder = JSONEncoder()
-                encoder.dateEncodingStrategy = .iso8601
-                jsonData = try? encoder.encode(package)
-                
+                                
                 javaDownload = 0.10
                 
                 clientJar = try await installationManager.downloadJar(for: package)
@@ -267,7 +261,7 @@ struct ContentView_Previews: PreviewProvider {
                 refresh: "962312.134134"
             ),
             launcherDirectory: .constant(nil),
-            minecraftDirectory: .constant(nil),
-            jsonData: .constant(nil))
+            minecraftDirectory: .constant(nil)
+        )
     }
 }

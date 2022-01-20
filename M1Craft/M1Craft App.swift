@@ -20,15 +20,23 @@ struct M1CraftApp: App {
     @AppStorage("azure_refresh_token")
     var azureRefreshToken: String = ""
     
+    @AppStorage("selected-version")
+    var selectedVersion: VersionManifest.VersionType = .release
+
     @State
     var launcherDirectory: URL? = nil
     @State
     var minecraftDirectory: URL? = nil
-    @State
-    var jsonData: Data? = nil
     
     @StateObject
     var updaterViewModel = UpdaterViewModel()
+    
+    @State
+    var alertPresented = false
+    @State
+    var alertTitle = ""
+    @State
+    var alertMessage: String? = nil
     
     var body: some Scene {
         WindowGroup {
@@ -51,8 +59,7 @@ struct M1CraftApp: App {
                 } else if let credentials = credentials {
                     ContentView(credentials: credentials,
                                 launcherDirectory: $launcherDirectory,
-                                minecraftDirectory: $minecraftDirectory,
-                                jsonData: $jsonData)
+                                minecraftDirectory: $minecraftDirectory)
                 } else if azureRefreshToken.count > 0 {
                     RefreshAuthView(credentials: $credentials,
                                     azureRefreshToken: $azureRefreshToken)
@@ -60,6 +67,13 @@ struct M1CraftApp: App {
                     AuthView(credentials: $credentials)
                 }
             }
+            .alert(isPresented: $alertPresented, content: {
+                if let alertMessage = alertMessage {
+                    return Alert(title: Text(alertTitle), message: Text(alertMessage))
+                } else {
+                    return Alert(title: Text(alertTitle), dismissButton: nil)
+                }
+            })
             .onAppear {
                 NSWindow.allowsAutomaticWindowTabbing = false
             }
@@ -73,9 +87,9 @@ struct M1CraftApp: App {
                 CheckForUpdatesView(updaterViewModel: updaterViewModel)
             }
             CommandGroup(after: .importExport) {
-                if launcherDirectory == nil || minecraftDirectory == nil || jsonData == nil {
+                if launcherDirectory == nil || minecraftDirectory == nil {
                     Group {
-                        Text("Run the game to access directories or export JSON data")
+                        Text("Run the game to access directories")
                     }
                 } else {
                     Group {
@@ -90,22 +104,45 @@ struct M1CraftApp: App {
                             }
                         }.disabled(minecraftDirectory == nil)
                     }
-                    Group {
-                        Button("Export modified version JSON...") {
-                            let savePanel = NSSavePanel()
-                            savePanel.allowedContentTypes = [.json]
-                            savePanel.canCreateDirectories = true
-                            savePanel.isExtensionHidden = false
-                            savePanel.allowsOtherFileTypes = false
-                            savePanel.title = "Save Version JSON"
-                            savePanel.directoryURL = minecraftDirectory?.appendingPathComponent("versions")
-                            savePanel.nameFieldLabel = "File name:"
-                            
-                            let response = savePanel.runModal()
-                            if let url = savePanel.url {
-                                try? jsonData?.write(to: url)
+                }
+                Group {
+                    Button("Export modified version JSON...") {
+                        let savePanel = NSSavePanel()
+                        savePanel.allowedContentTypes = [.json]
+                        savePanel.canCreateDirectories = true
+                        savePanel.isExtensionHidden = false
+                        savePanel.allowsOtherFileTypes = false
+                        savePanel.title = "Save Version JSON"
+                        savePanel.directoryURL = minecraftDirectory?.appendingPathComponent("versions")
+                        savePanel.nameFieldLabel = "File name:"
+                        
+                        let response = savePanel.runModal()
+                        
+                        alertTitle = "Preparing JSON..."
+                        alertPresented = true
+                        
+                        if let url = savePanel.url, response == .OK {
+                            Task {
+                                do {
+                                    let manifest = try await VersionManifest.download()
+                                    let metadata = try manifest.metadata(for: selectedVersion)
+                                    let package = try await metadata.package(patched: true)
+
+                                    let encoder = JSONEncoder()
+                                    encoder.dateEncodingStrategy = .iso8601
+                                    let data = try encoder.encode(package)
+
+                                    try data.write(to: url)
+                                    
+                                    alertTitle = "Saved JSON"
+                                } catch let err {
+                                    alertTitle = "Failed to save JSON"
+                                    alertMessage = err.localizedDescription
+                                }
                             }
-                        }.disabled(jsonData == nil)
+                        } else {
+                            alertPresented = false
+                        }
                     }
                 }
             }
