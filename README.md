@@ -14,8 +14,6 @@ Tip: If you would like to run custom versions that do not appear selectable in t
 ```
 defaults write dev.ezekiel.m1craft selected-version "<version here>"
 ```
-This will only work with versions that use Java 16 or Java 17, so 1.16 and earlier are still not supported at this time. However if you need to pin to a specific snapshot version since the switch to Java 16, this would work.
-
-If you would like to play 1.16 natively on Apple Silicon and have not yet found a way to do so, send me a message and I will investigate this.
+This will only work with 19w11a and later, which includes 1.14.
 
 Note: 1.18 and later can be run directly from the official Minecraft launcher. Follow instructions [here](https://gist.github.com/ezfe/8bc43a65e16b79c955f81b4d7fa4ae6a) if you'd prefer to do this instead – including if you need to mod the game. However this launcher is still easier (no install steps needed).
