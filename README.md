@@ -4,7 +4,7 @@ Run Minecraft 1.17 and 1.18 without installing any profiles, json files, or jars
 
 This tool does **not** modify either the Minecraft JAR or LWJGL JARs. The Minecraft JAR is downloaded unmodified from Minecraft, and the LWJGL jars are pre-built 3.3.0 directly from lwjgl.org
 
-Head on over to the [releases](https://github.com/ezfe/m1craft/releases) page to download.
+Download: [Version 1.3.1](https://f001.backblazeb2.com/file/minecraft-jar-command/appcast/M1Craft%20UI%201.3.1.zip).
 
 **Warning:** Do not use the Minecraft fullscreen option, instead use the system one (green button). If you've used the Minecraft one and it's crashing, follow the steps [here](https://github.com/ezfe/m1craft/issues/5#issuecomment-972287174)
 
