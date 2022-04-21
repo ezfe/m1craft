@@ -10,9 +10,8 @@ import InstallationManager
 
 @main
 struct M1CraftApp: App {
-    
-    @State
-    var preflightCompleted = false
+    @StateObject
+    private var appState: AppState
     
     @State
     var credentials: SignInResult? = nil
@@ -38,49 +37,30 @@ struct M1CraftApp: App {
     @State
     var alertMessage: String? = nil
     
+    @MainActor
+    init() {
+        self._appState = StateObject(wrappedValue: AppState())
+    }
+    
     var body: some Scene {
         WindowGroup {
-            VStack {
-                if azureRefreshToken.count > 0 || credentials != nil {
-                    if let credentials = credentials {
-                        Text("Currently signed in as: \(credentials.name)")
+            MainWindow()
+                .environmentObject(appState)
+                .frame(minWidth: 500,
+                       maxWidth: .infinity,
+                       minHeight: 350,
+                       maxHeight: .infinity)
+                .alert(isPresented: $alertPresented, content: {
+                    if let alertMessage = alertMessage {
+                        return Alert(title: Text(alertTitle), message: Text(alertMessage))
                     } else {
-                        Text("Currently signed in.")
+                        return Alert(title: Text(alertTitle), dismissButton: nil)
                     }
-                    Button("Sign out") {
-                        azureRefreshToken = ""
-                        self.credentials = nil
-                    }
-                    Divider()
+                })
+                .onAppear {
+                    NSWindow.allowsAutomaticWindowTabbing = false
+                    Task { await appState.setup() }
                 }
-
-                if !preflightCompleted {
-                    Preflight(preflightCompleted: $preflightCompleted)
-                } else if let credentials = credentials {
-                    ContentView(credentials: credentials,
-                                launcherDirectory: $launcherDirectory,
-                                minecraftDirectory: $minecraftDirectory)
-                } else if azureRefreshToken.count > 0 {
-                    RefreshAuthView(credentials: $credentials,
-                                    azureRefreshToken: $azureRefreshToken)
-                } else {
-                    AuthView(credentials: $credentials)
-                }
-            }
-            .alert(isPresented: $alertPresented, content: {
-                if let alertMessage = alertMessage {
-                    return Alert(title: Text(alertTitle), message: Text(alertMessage))
-                } else {
-                    return Alert(title: Text(alertTitle), dismissButton: nil)
-                }
-            })
-            .onAppear {
-                NSWindow.allowsAutomaticWindowTabbing = false
-            }
-            .frame(minWidth: 500,
-                   maxWidth: .infinity,
-                   minHeight: 350,
-                   maxHeight: .infinity)
         }
         .commands {
             CommandGroup(after: .appInfo) {
@@ -124,7 +104,7 @@ struct M1CraftApp: App {
                         if let url = savePanel.url, response == .OK {
                             Task {
                                 do {
-                                    let manifest = try await VersionManifest.download()
+                                    let manifest = try await VersionManifest.download(url: manifestUrl)
                                     let metadata = try manifest.metadata(for: selectedVersion)
                                     let package = try await metadata.package(patched: true)
 

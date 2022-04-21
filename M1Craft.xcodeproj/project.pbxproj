@@ -11,8 +11,15 @@
 		6604C269271E1EF90024898E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6604C268271E1EF90024898E /* Assets.xcassets */; };
 		6604C278271E1FD80024898E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6604C277271E1FD80024898E /* ContentView.swift */; };
 		6604C27B271E1FFC0024898E /* InstallationManager in Frameworks */ = {isa = PBXBuildFile; productRef = 6604C27A271E1FFC0024898E /* InstallationManager */; };
+		6640C3CD27FE442500831E89 /* Array+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6640C3CC27FE442400831E89 /* Array+RawRepresentable.swift */; };
+		66530F3427C6086900CD94DE /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66530F3327C6086900CD94DE /* MainWindow.swift */; };
+		66530F3727C60C1A00CD94DE /* VersionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66530F3627C60C1A00CD94DE /* VersionListView.swift */; };
+		66530F3927C60C8800CD94DE /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66530F3827C60C8800CD94DE /* AppState.swift */; };
+		66530F3B27C6BD2000CD94DE /* VersionListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66530F3A27C6BD2000CD94DE /* VersionListRowView.swift */; };
+		66530F3E27C6BFD500CD94DE /* AppStoreButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66530F3D27C6BFD500CD94DE /* AppStoreButtonStyle.swift */; };
 		66648ECC2742DCE5005CD396 /* RefreshAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */; };
 		66648ECE27431764005CD396 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66648ECD27431764005CD396 /* Constants.swift */; };
+		66A0719C279A6180002311E4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A0719B279A6180002311E4 /* SettingsView.swift */; };
 		66B9CBFB278B3265001A59E2 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 66B9CBFA278B3265001A59E2 /* Sparkle */; };
 		66B9CBFD278B327A001A59E2 /* SparkleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B9CBFC278B327A001A59E2 /* SparkleView.swift */; };
 		66D996812741C8E3000D53DD /* Preflight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D996802741C8E3000D53DD /* Preflight.swift */; };
@@ -25,8 +32,15 @@
 		6604C268271E1EF90024898E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6604C26D271E1EF90024898E /* M1Craft.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = M1Craft.entitlements; sourceTree = "<group>"; };
 		6604C277271E1FD80024898E /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6640C3CC27FE442400831E89 /* Array+RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+RawRepresentable.swift"; sourceTree = "<group>"; };
+		66530F3327C6086900CD94DE /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
+		66530F3627C60C1A00CD94DE /* VersionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionListView.swift; sourceTree = "<group>"; };
+		66530F3827C60C8800CD94DE /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		66530F3A27C6BD2000CD94DE /* VersionListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionListRowView.swift; sourceTree = "<group>"; };
+		66530F3D27C6BFD500CD94DE /* AppStoreButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStoreButtonStyle.swift; sourceTree = "<group>"; };
 		66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshAuthView.swift; sourceTree = "<group>"; };
 		66648ECD27431764005CD396 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		66A0719B279A6180002311E4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		66B8AA03278D299D00E41FA1 /* M1Craft-Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "M1Craft-Debug.entitlements"; sourceTree = "<group>"; };
 		66B9CBFC278B327A001A59E2 /* SparkleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparkleView.swift; sourceTree = "<group>"; };
 		66D996802741C8E3000D53DD /* Preflight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preflight.swift; sourceTree = "<group>"; };
@@ -50,11 +64,15 @@
 		6603695D278E3D4C000D9EFF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				66530F3C27C6BFA700CD94DE /* Xcodes */,
+				66530F3527C60C0000CD94DE /* VersionList */,
 				66D996802741C8E3000D53DD /* Preflight.swift */,
 				66F13B1A273DCEA9002C297B /* AuthView.swift */,
 				66648ECB2742DCE5005CD396 /* RefreshAuthView.swift */,
 				6604C277271E1FD80024898E /* ContentView.swift */,
 				66B9CBFC278B327A001A59E2 /* SparkleView.swift */,
+				66A0719B279A6180002311E4 /* SettingsView.swift */,
+				66530F3327C6086900CD94DE /* MainWindow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -81,12 +99,31 @@
 				66B8AA03278D299D00E41FA1 /* M1Craft-Debug.entitlements */,
 				66F13B19273DCE35002C297B /* M1Craft-Info.plist */,
 				6604C264271E1EF80024898E /* M1Craft App.swift */,
+				66530F3827C60C8800CD94DE /* AppState.swift */,
 				6603695D278E3D4C000D9EFF /* Views */,
 				66648ECD27431764005CD396 /* Constants.swift */,
+				6640C3CC27FE442400831E89 /* Array+RawRepresentable.swift */,
 				6604C268271E1EF90024898E /* Assets.xcassets */,
 				6604C26D271E1EF90024898E /* M1Craft.entitlements */,
 			);
 			path = M1Craft;
+			sourceTree = "<group>";
+		};
+		66530F3527C60C0000CD94DE /* VersionList */ = {
+			isa = PBXGroup;
+			children = (
+				66530F3627C60C1A00CD94DE /* VersionListView.swift */,
+				66530F3A27C6BD2000CD94DE /* VersionListRowView.swift */,
+			);
+			path = VersionList;
+			sourceTree = "<group>";
+		};
+		66530F3C27C6BFA700CD94DE /* Xcodes */ = {
+			isa = PBXGroup;
+			children = (
+				66530F3D27C6BFD500CD94DE /* AppStoreButtonStyle.swift */,
+			);
+			path = Xcodes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,11 +205,18 @@
 			files = (
 				66648ECC2742DCE5005CD396 /* RefreshAuthView.swift in Sources */,
 				6604C265271E1EF80024898E /* M1Craft App.swift in Sources */,
+				66530F3B27C6BD2000CD94DE /* VersionListRowView.swift in Sources */,
 				6604C278271E1FD80024898E /* ContentView.swift in Sources */,
+				66530F3927C60C8800CD94DE /* AppState.swift in Sources */,
 				66F13B1B273DCEA9002C297B /* AuthView.swift in Sources */,
+				66A0719C279A6180002311E4 /* SettingsView.swift in Sources */,
+				6640C3CD27FE442500831E89 /* Array+RawRepresentable.swift in Sources */,
 				66D996812741C8E3000D53DD /* Preflight.swift in Sources */,
+				66530F3E27C6BFD500CD94DE /* AppStoreButtonStyle.swift in Sources */,
 				66648ECE27431764005CD396 /* Constants.swift in Sources */,
 				66B9CBFD278B327A001A59E2 /* SparkleView.swift in Sources */,
+				66530F3427C6086900CD94DE /* MainWindow.swift in Sources */,
+				66530F3727C60C1A00CD94DE /* VersionListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,20 +349,20 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 39QG79F7FD;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "M1Craft-UI-Info.plist";
+				INFOPLIST_FILE = "M1Craft-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ezekiel.m1craft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -337,20 +381,20 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 39QG79F7FD;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "M1Craft-UI-Info.plist";
+				INFOPLIST_FILE = "M1Craft-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ezekiel.m1craft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

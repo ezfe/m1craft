@@ -12,11 +12,8 @@ import InstallationManager
 import Common
 
 struct RefreshAuthView: View {
-    @Binding
-    var credentials: SignInResult?
-    
-    @Binding
-    var azureRefreshToken: String
+    @EnvironmentObject
+    var appState: AppState
     
     @State
     var signingIn = false
@@ -34,15 +31,15 @@ struct RefreshAuthView: View {
         }
         .onAppear(perform: {
             signingIn = true
-            print("Attempting refresh for \(azureRefreshToken)")
+            print("Attempting refresh for \(appState.azureRefreshToken)")
             Task {
                 var components = URLComponents(string: "\(serverAddress)/refresh-auth")
                 components?.queryItems = [
-                    URLQueryItem(name: "refresh_token", value: azureRefreshToken)
+                    URLQueryItem(name: "refresh_token", value: appState.azureRefreshToken)
                 ]
                 guard let refreshUrl = components?.url else {
                     print("Failed to build refresh token. Resetting.")
-                    azureRefreshToken = ""
+                    appState.azureRefreshToken = ""
                     return
                 }
                 
@@ -56,8 +53,8 @@ struct RefreshAuthView: View {
                     do {
                         if code == 200 {
                             let results = try JSONDecoder().decode(SignInResult.self, from: data)
-                            azureRefreshToken = results.refresh
-                            credentials = results
+                            appState.azureRefreshToken = results.refresh
+                            appState.credentials = results
                         } else {
                             let response = try JSONDecoder().decode(PreflightResponse.self, from: data)
                             message = response.message

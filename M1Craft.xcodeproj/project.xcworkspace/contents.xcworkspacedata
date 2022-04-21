@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/ezekielelin/github_repositories/Minecraft Launcher/M1Craft UI/M1Craft.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

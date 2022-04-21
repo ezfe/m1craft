@@ -13,58 +13,33 @@ struct PreflightResponse: Decodable {
 }
 
 struct Preflight: View {
-    @Binding
-    var preflightCompleted: Bool
-    
-    @State
-    var loading = true
-    @State
-    var message = ""
-    @State
-    var messageUrl: URL? = nil
-    
+    @EnvironmentObject
+    var appState: AppState
+        
     var body: some View {
-        VStack {
-            if loading {
+        switch appState.initializationStatus {
+            case .idle, .downloading:
                 Text("Loading...")
                 ProgressView()
-            } else {
-                Text(message)
-                if let url = messageUrl {
+            case .failure(let result):
+                Text(result.message)
+                if let url = result.url {
                     Link("Continue...", destination: url)
                 }
-            }
-        }
-        .onAppear {
-            Task { await performPreflight() }
-        }
-        .padding()
-    }
-    
-    func performPreflight() async {
-        loading = true
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        
-        var components = URLComponents(string: "\(serverAddress)/preflight")
-        components?.queryItems = [URLQueryItem(name: "app_version", value: appVersion)]
-        
-        let response = try? await URLSession.shared.data(from: components!.url!)
-        if let response = response {
-            let data = response.0
-            let decoded = try? JSONDecoder().decode(PreflightResponse.self, from: data)
-            
-            guard let decoded = decoded else {
-                // Don't interrupt user if the message
-                // fails to download or decode.
-                preflightCompleted = true
-                return
-            }
-
-            message = decoded.message
-            messageUrl = decoded.url
-            loading = false
-        } else {
-            preflightCompleted = true
+            case .success(let manifest):
+                if appState.credentials != nil {
+                    VersionListView(
+                        selectedVersionId: .constant(""),
+                        manifest: manifest
+                    )
+                    .environmentObject(appState)
+                } else if appState.azureRefreshToken.count > 0 {
+                    RefreshAuthView()
+                        .environmentObject(appState)
+                } else {
+                    AuthView()
+                        .environmentObject(appState)
+                }
         }
     }
 }

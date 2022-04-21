@@ -65,11 +65,11 @@ class SignInViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentati
 }
 
 struct AuthView: View {
+    @EnvironmentObject
+    var appState: AppState
+    
     @StateObject
     var viewModel = SignInViewModel()
-    
-    @Binding
-    var credentials: SignInResult?
     
     @State
     var signingIn = false
@@ -90,7 +90,8 @@ struct AuthView: View {
                         signingIn = true
                         do {
                             let res = try await viewModel.signIn()
-                            credentials = res
+                            print("Received res; Saving...", res)
+                            appState.credentials = res
                         } catch let error {
                             if let asError = error as? ASWebAuthenticationSessionError {
                                 switch asError.code {
@@ -114,7 +115,7 @@ struct AuthView: View {
         .alert("Authentication Error", isPresented: $errorMessageShown, actions: {
             Button {
                 errorMessageShown = false
-                credentials = nil
+                appState.credentials = nil
             } label: {
                 Text("OK")
             }
