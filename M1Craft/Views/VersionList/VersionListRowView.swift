@@ -12,7 +12,8 @@ struct VersionListRowView: View {
     let version: VersionManifest.VersionType
     let metadata: VersionManifest.VersionMetadata
     let selected: Bool
-    let appState: AppState
+    @EnvironmentObject
+    var appState: AppState
     
     var body: some View {
         HStack {
@@ -26,14 +27,22 @@ struct VersionListRowView: View {
             switch appState.launchStatus {
                 case .idle, .failed(_):
                     playControl()
-                case .starting:
-                    Button("Starting...", action: { () in })
-                        .buttonStyle(AppStoreButtonStyle(primary: true, highlighted: selected))
-                        .disabled(true)
-                case .running:
-                    Button("Running...", action: { () in })
-                        .buttonStyle(AppStoreButtonStyle(primary: true, highlighted: selected))
-                        .disabled(true)
+                case .starting(let id):
+                    if id == metadata.id {
+                        Button("Starting...", action: { () in })
+                            .buttonStyle(AppStoreButtonStyle(primary: true, highlighted: selected))
+                            .disabled(true)
+                    } else {
+                        EmptyView()
+                    }
+                case .running(let id):
+                    if id == metadata.id {
+                        Button("Running...", action: { () in })
+                            .buttonStyle(AppStoreButtonStyle(primary: true, highlighted: selected))
+                            .disabled(true)
+                    } else {
+                        EmptyView()
+                    }
             }
         }
         .contextMenu {
@@ -62,14 +71,12 @@ struct VersionListRowView_Previews: PreviewProvider {
         VersionListRowView(
             version: .custom("1.19.1"),
             metadata: .init(id: "1.19.1", type: "snapshot", time: Date(), releaseTime: Date(), url: "https://mojang.com/version1.json", sha1: "123sha456"),
-            selected: false,
-            appState: AppState()
+            selected: false
         )
         VersionListRowView(
             version: .release,
             metadata: .init(id: "1.19.2", type: "snapshot", time: Date(), releaseTime: Date(), url: "https://mojang.com/version2.json", sha1: "123sha456"),
-            selected: true,
-            appState: AppState()
+            selected: true
         )
     }
 }

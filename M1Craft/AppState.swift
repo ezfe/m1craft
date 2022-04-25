@@ -24,8 +24,8 @@ enum InitStatus {
 
 enum LaunchStatus {
     case idle
-    case starting
-    case running
+    case starting(String)
+    case running(String)
     case failed(String)
 }
 
@@ -117,7 +117,7 @@ class AppState: ObservableObject {
     
     func runGame(metadata: VersionManifest.VersionMetadata) async {
         print("Running \(metadata.id)")
-        self.launchStatus = .starting
+        self.launchStatus = .starting(metadata.id)
 
         guard let credentials = credentials else {
             print("Not logged in")
@@ -187,7 +187,7 @@ class AppState: ObservableObject {
 
                     proc.waitUntilExit()
                     
-                    self.launchStatus = .running
+                    self.launchStatus = .running(metadata.id)
                     self.javaDownload = 0
                     self.libraryDownload = 0
                     self.assetDownload = 0

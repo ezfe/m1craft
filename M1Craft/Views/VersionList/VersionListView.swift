@@ -21,17 +21,19 @@ struct VersionListView: View {
     }
     
     var body: some View {
-        if case .success(let manifest) = appState.initializationStatus {
-            List(manifest.versionTypes, selection: $selectedVersionId) { versionPair in
-                VersionListRowView(
-                    version: versionPair.version,
-                    metadata: versionPair.metadata,
-                    selected: selectedVersionId == versionPair.metadata.id,
-                    appState: appState
-                )
+        VStack {
+            if case .success(let manifest) = appState.initializationStatus {
+                List(manifest.versionTypes, selection: $selectedVersionId) { versionPair in
+                    VersionListRowView(
+                        version: versionPair.version,
+                        metadata: versionPair.metadata,
+                        selected: selectedVersionId == versionPair.metadata.id
+                    )
+                    .environmentObject(appState)
+                }
+            } else {
+                EmptyView()
             }
-        } else {
-            EmptyView()
         }
     }
 }
