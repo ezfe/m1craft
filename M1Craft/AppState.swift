@@ -24,9 +24,9 @@ enum InitStatus {
 
 enum LaunchStatus {
     case idle
-    case starting(String)
-    case running(String)
-    case failed(String)
+    case starting(String, String) // Id, Message
+    case running(String) // Id
+    case failed(String, String) // Id, Message
 }
 
 @MainActor
@@ -48,8 +48,6 @@ class AppState: ObservableObject {
     @State
     var assetDownload: Double = 0
     
-//    @AppStorage("selected-version")
-//    var selectedVersion: VersionManifest.VersionType = .release
     @AppStorage("azure_refresh_token")
     var azureRefreshToken: String = ""
     @AppStorage("selected-version")
@@ -117,25 +115,28 @@ class AppState: ObservableObject {
     
     func runGame(metadata: VersionManifest.VersionMetadata) async {
         print("Running \(metadata.id)")
-        self.launchStatus = .starting(metadata.id)
+        self.launchStatus = .starting(metadata.id, "")
 
         guard let credentials = credentials else {
             print("Not logged in")
-            self.launchStatus = .failed("Not logged in")
+            self.launchStatus = .failed(metadata.id, "Not logged in")
             return
         }
                 
         do {
+            self.launchStatus = .starting(metadata.id, "Initializing")
             let installationManager = try InstallationManager()
             
             print("Patching")
+            self.launchStatus = .starting(metadata.id, "Patching for ARM")
             let package = try await metadata.package(patched: true)
             guard package.minimumLauncherVersion >= 21 else {
-                self.launchStatus = .failed("Unfortunately, \(package.id) isn't available from this utility. This utility does not work with versions prior to 1.13")
+                self.launchStatus = .failed(metadata.id, "Unfortunately, This utility does not work with versions prior to 1.13")
                 return
             }
             
             print("Starting Java Download")
+            self.launchStatus = .starting(metadata.id, "Starting Java Download")
                             
             self.javaDownload = 0.10
             
@@ -146,17 +147,18 @@ class AppState: ObservableObject {
             self.javaDownload = 1
             
             print("Starting Asset Download")
+            self.launchStatus = .starting(metadata.id, "Starting Asset Download")
             try await installationManager.downloadAssets(for: package, progress: { [weak self] progress in
                 self?.assetDownload = progress
             })
             
             print("Starting Library Download")
+            self.launchStatus = .starting(metadata.id, "Starting Library Download")
             let _ = try await installationManager.downloadLibraries(for: package, progress: { [weak self] progress in
                 self?.libraryDownload = progress
             })
-
-            print("Queued up downloads")
             
+            self.launchStatus = .starting(metadata.id, "Installing Natives")
             try installationManager.copyNatives()
             
             let launchArgumentsResults = try await installationManager.launchArguments(
@@ -179,20 +181,26 @@ class AppState: ObservableObject {
 //                    let pipe = Pipe()
 //                    proc.standardOutput = pipe
                     
-                    print(javaExec.absoluteString)
-                    print(args.joined(separator: " "))
-                    print(installationManager.baseDirectory.absoluteString)
+//                    print(javaExec.absoluteString)
+//                    print(args.joined(separator: " "))
+//                    print(installationManager.baseDirectory.absoluteString)
                     
+                    self.launchStatus = .starting(metadata.id, "Launching game")
                     proc.launch()
 
-                    proc.waitUntilExit()
-                    
                     self.launchStatus = .running(metadata.id)
                     self.javaDownload = 0
                     self.libraryDownload = 0
                     self.assetDownload = 0
+
+                    DispatchQueue.global(qos: .background).async {
+                        proc.waitUntilExit()
+                        DispatchQueue.main.async {
+                            self.launchStatus = .idle
+                        }
+                    }
                 case .failure(let error):
-                    self.launchStatus = .failed(error.localizedDescription)
+                    self.launchStatus = .failed(metadata.id, error.localizedDescription)
                     return
             }
         } catch let err {
@@ -203,24 +211,24 @@ class AppState: ObservableObject {
             if let cerr = err as? CError {
                 switch cerr {
                     case .networkError(let errorMessage):
-                        self.launchStatus = .failed("Network Error: \(errorMessage)")
+                        self.launchStatus = .failed(metadata.id, "Network Error: \(errorMessage)")
                     case .encodingError(let errorMessage):
-                        self.launchStatus = .failed("Encoding Error: \(errorMessage)")
+                        self.launchStatus = .failed(metadata.id, "Encoding Error: \(errorMessage)")
                     case .decodingError(let errorMessage):
-                        self.launchStatus = .failed("Decoding Error: \(errorMessage)")
+                        self.launchStatus = .failed(metadata.id, "Decoding Error: \(errorMessage)")
                     case .filesystemError(let errorMessage):
-                        self.launchStatus = .failed("Filesystem Error: \(errorMessage)")
+                        self.launchStatus = .failed(metadata.id, "Filesystem Error: \(errorMessage)")
                     case .stateError(let errorMessage):
-                        self.launchStatus = .failed("State Error: \(errorMessage)")
+                        self.launchStatus = .failed(metadata.id, "State Error: \(errorMessage)")
                     case .sha1Error(let expected, let found):
-                        self.launchStatus = .failed("SHA1 Mismatch: Expected \(expected) but found \(found)")
+                        self.launchStatus = .failed(metadata.id, "SHA1 Mismatch: Expected \(expected) but found \(found)")
                     case .unknownVersion(let version):
-                        self.launchStatus = .failed("Unknown Version: \(version)")
+                        self.launchStatus = .failed(metadata.id, "Unknown Version: \(version)")
                     case .unknownError(let errorMessage):
-                        self.launchStatus = .failed(errorMessage)
+                        self.launchStatus = .failed(metadata.id, errorMessage)
                 }
             } else {
-                self.launchStatus = .failed(err.localizedDescription)
+                self.launchStatus = .failed(metadata.id, err.localizedDescription)
             }
 
             return

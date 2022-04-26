@@ -25,10 +25,16 @@ struct VersionListRowView: View {
             }
             Spacer()
             switch appState.launchStatus {
-                case .idle, .failed(_):
+                case .idle:
                     playControl()
-                case .starting(let id):
+                case .failed(let id, let message):
                     if id == metadata.id {
+                        Text(message)
+                    }
+                    playControl()
+                case .starting(let id, let message):
+                    if id == metadata.id {
+                        Text(message)
                         Button("Starting...", action: { () in })
                             .buttonStyle(AppStoreButtonStyle(primary: true, highlighted: selected))
                             .disabled(true)
