@@ -2,7 +2,7 @@
 
 Run Minecraft 1.17 and 1.18 without installing any profiles, json files, or jars.
 
-This tool does **not** modify either the Minecraft JAR or LWJGL JARs. The Minecraft JAR is downloaded unmodified from Minecraft, and the LWJGL jars are pre-built 3.3.0 directly from lwjgl.org
+This tool does **not** modify either the Minecraft JAR or LWJGL JARs. The Minecraft JAR is downloaded unmodified from Minecraft, and the LWJGL jars are pre-built 3.3.0 (3.3.1 for 22w16a and later) directly from lwjgl.org
 
 Download: https://m1craft.ezekiel.dev
 
