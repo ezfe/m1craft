@@ -9,8 +9,9 @@ import SwiftUI
 import InstallationManager
 
 struct VersionListRowView: View {
-    let version: VersionManifest.VersionType
-    let metadata: VersionManifest.VersionMetadata
+    let versionMetadataPair: VersionManifest.VersionTypeMetadataPair
+    var version: VersionManifest.VersionType { versionMetadataPair.version }
+    var metadata: VersionManifest.VersionMetadata { versionMetadataPair.metadata }
     let favorite: Bool
     let selected: Bool
     @EnvironmentObject
@@ -52,13 +53,13 @@ struct VersionListRowView: View {
             switch appState.launchStatus {
                 case .idle:
                     playControl()
-                case .failed(let id, let message):
-                    if id == metadata.id {
+                case .failed(let version, let message):
+                    if version == self.version {
                         Text(message)
                     }
                     playControl()
-                case .starting(let id, let message):
-                    if id == metadata.id {
+                case .starting(let version, let message):
+                    if version == self.version {
                         Text(message)
                         Button("Starting...", action: { () in })
                             .buttonStyle(AppStoreButtonStyle(primary: true, highlighted: selected))
@@ -66,11 +67,18 @@ struct VersionListRowView: View {
                     } else {
                         EmptyView()
                     }
-                case .running(let id, _):
-                    if id == metadata.id {
+                case .running(let version, let process):
+                    if version == self.version {
                         Button("Running...", action: { () in })
                             .buttonStyle(AppStoreButtonStyle(primary: true, highlighted: selected))
                             .disabled(true)
+                        Button {
+                            process.terminate()
+                        } label: {
+                            Label("Stop", systemImage: "xmark.circle")
+                        }
+                        .buttonStyle(AppStoreButtonStyle(primary: true, highlighted: selected))
+
                     } else {
                         EmptyView()
                     }
@@ -93,6 +101,47 @@ struct VersionListRowView: View {
                     Label("Add Favorite", systemImage: "star")
                 }
             }
+            
+            Divider()
+            
+            Button("Export modified version JSON...") {
+                let savePanel = NSSavePanel()
+                savePanel.allowedContentTypes = [.json]
+                savePanel.canCreateDirectories = true
+                savePanel.isExtensionHidden = false
+                savePanel.allowsOtherFileTypes = false
+                savePanel.title = "Save Version JSON"
+                savePanel.directoryURL = appState.minecraftDirectory?.appendingPathComponent("versions")
+                savePanel.nameFieldLabel = "File name:"
+                
+                let response = savePanel.runModal()
+                
+                appState.alertTitle = "Preparing JSON..."
+                appState.alertPresented = true
+                
+                if let url = savePanel.url, response == .OK {
+                    Task {
+                        do {
+                            let package = try await metadata.package(patched: true)
+
+                            let encoder = JSONEncoder()
+                            encoder.dateEncodingStrategy = .iso8601
+                            let data = try encoder.encode(package)
+
+                            try data.write(to: url)
+                            print("Saved json...")
+                            
+                            appState.alertTitle = "Saved JSON"
+                        } catch let err {
+                            appState.alertTitle = "Failed to save JSON"
+                            appState.alertMessage = err.localizedDescription
+                        }
+                    }
+                } else {
+                    appState.alertPresented = false
+                }
+            }
+
         }
     }
     
@@ -105,11 +154,12 @@ struct VersionListRowView: View {
     
     func playAction() {
         Task {
-            await appState.runGame(metadata: self.metadata)
+            await appState.runGame(version: versionMetadataPair)
         }
     }
 }
 
+/*
 struct VersionListRowView_Previews: PreviewProvider {
     static var previews: some View {
         VersionListRowView(
@@ -126,3 +176,4 @@ struct VersionListRowView_Previews: PreviewProvider {
         )
     }
 }
+*/

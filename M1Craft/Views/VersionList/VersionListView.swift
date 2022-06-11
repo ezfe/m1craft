@@ -54,8 +54,7 @@ struct VersionListView: View {
         VStack {
             List(self.versions, selection: $selectedVersionId) { versionPair in
                 VersionListRowView(
-                    version: versionPair.version,
-                    metadata: versionPair.metadata,
+                    versionMetadataPair: versionPair,
                     favorite: appState.favoriteVersions.contains(versionPair.version),
                     selected: selectedVersionId == versionPair.metadata.id
                 )
