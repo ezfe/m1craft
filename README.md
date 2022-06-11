@@ -8,7 +8,7 @@ Download: https://m1craft.ezekiel.dev
 
 **Warning:** Do not use the Minecraft fullscreen option, instead use the system one (green button). If you've used the Minecraft one and it's crashing, follow the steps [here](https://github.com/ezfe/m1craft/issues/5#issuecomment-972287174)
 
-<img width="612" alt="Screen Shot 2022-02-17 at 3 26 21 PM" src="https://user-images.githubusercontent.com/1449259/154565073-f7376cbd-28e2-48bd-bb35-4aebba0793af.png">
+<img width="612" alt="Screen Shot 2022-06-11 at 4 58 00 PM" src="https://user-images.githubusercontent.com/1449259/173204665-0cabb812-4e7d-4a94-ba59-d5d63d305b6c.png">
 
 Tip: If you would like to run custom versions that do not appear selectable in the UI, you can set the version to play manually via terminal:
 ```
