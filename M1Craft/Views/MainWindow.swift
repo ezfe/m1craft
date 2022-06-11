@@ -12,7 +12,7 @@ struct MainWindow: View {
     var appState: AppState
 
     @State
-    var viewAccount = false
+    var viewSettings = false
     @State
     var loginSheet = true
     
@@ -22,36 +22,26 @@ struct MainWindow: View {
             .toolbar {
                 ToolbarItemGroup(placement: .status) {
                     Button {
-                        viewAccount = true
+                        viewSettings = true
                     } label: {
-                        Label("Account Info", systemImage: "person.circle")
+                        Label("Settings", systemImage: "gearshape")
                     }
-                    .help("Open Account Info")
+                    .help("Open Settings")
                 }
             }
-            .sheet(isPresented: $viewAccount) {
+            .sheet(isPresented: $viewSettings) {
                 VStack {
-                    accountView()
-                        .environmentObject(appState)
+                    SettingsView()
                     HStack {
                         Spacer()
                         Button("Close") {
-                            viewAccount = false
+                            viewSettings = false
                         }
                         .keyboardShortcut(.cancelAction)
                     }
                 }
                 .padding()
             }
-    }
-    
-    @ViewBuilder
-    private func accountView() -> some View {
-        if let credentials = appState.credentials {
-            Text("Account: \(credentials.name)")
-        } else {
-            Text("Not logged in, hmm")
-        }
     }
 }
 

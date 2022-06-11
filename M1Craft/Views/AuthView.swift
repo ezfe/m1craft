@@ -41,8 +41,10 @@ class SignInViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentati
             
             authSession.presentationContextProvider = self
 
-            authSession.start()
-            print("Started session...")
+            DispatchQueue.main.async {
+                authSession.start()
+                print("Started session...")
+            }
         }
         
         let components = URLComponents(url: callbackUrl, resolvingAgainstBaseURL: false)!

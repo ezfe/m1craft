@@ -25,7 +25,7 @@ enum InitStatus {
 enum LaunchStatus {
     case idle
     case starting(String, String) // Id, Message
-    case running(String) // Id
+    case running(String, Process) // Id
     case failed(String, String) // Id, Message
 }
 
@@ -51,7 +51,7 @@ class AppState: ObservableObject {
     @AppStorage("azure_refresh_token")
     var azureRefreshToken: String = ""
     @AppStorage("selected-version")
-    var selectedVersions: [VersionManifest.VersionType] = [.release]
+    var favoriteVersions: [VersionManifest.VersionType] = [.release]
     @AppStorage("selected-memory-allocation")
     var selectedMemoryAllocation: Int = 3
     
@@ -177,6 +177,11 @@ class AppState: ObservableObject {
                     proc.executableURL = javaExec
                     proc.arguments = args
                     proc.currentDirectoryURL = installationManager.baseDirectory
+                    proc.terminationHandler = { proc in
+                        DispatchQueue.main.async {
+                            self.launchStatus = .idle
+                        }
+                    }
 
 //                    let pipe = Pipe()
 //                    proc.standardOutput = pipe
@@ -188,17 +193,10 @@ class AppState: ObservableObject {
                     self.launchStatus = .starting(metadata.id, "Launching game")
                     proc.launch()
 
-                    self.launchStatus = .running(metadata.id)
+                    self.launchStatus = .running(metadata.id, proc)
                     self.javaDownload = 0
                     self.libraryDownload = 0
                     self.assetDownload = 0
-
-                    DispatchQueue.global(qos: .background).async {
-                        proc.waitUntilExit()
-                        DispatchQueue.main.async {
-                            self.launchStatus = .idle
-                        }
-                    }
                 case .failure(let error):
                     self.launchStatus = .failed(metadata.id, error.localizedDescription)
                     return

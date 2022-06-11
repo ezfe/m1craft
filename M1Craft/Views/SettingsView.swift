@@ -9,31 +9,26 @@ import SwiftUI
 import InstallationManager
 
 struct SettingsView: View {
-    @Binding
-    var azureRefreshToken: String
-    @Binding
-    var credentials: SignInResult?
-    
-    @AppStorage("selected-memory-allocation")
-    var selectedMemoryAllocation: Int = 3
+    @EnvironmentObject
+    var appState: AppState
     
     var body: some View {
         VStack {
-            if let credentials = credentials {
+            if let credentials = appState.credentials {
                 Text("Currently signed in as: \(credentials.name)")
+                Button("Sign out") {
+                    appState.azureRefreshToken = ""
+                    appState.credentials = nil
+                }
             } else {
-                Text("Currently signed in.")
-            }
-            Button("Sign out") {
-                azureRefreshToken = ""
-                credentials = nil
+                Text("Currently signed out.")
             }
             Divider()
 
-            Stepper(value: $selectedMemoryAllocation,
+            Stepper(value: $appState.selectedMemoryAllocation,
                     in: 1...16,
                     step: 1) {
-                Text("Memory Allocation: \(selectedMemoryAllocation)GB")
+                Text("Memory Allocation: \(appState.selectedMemoryAllocation)GB")
             }
         }
     }
