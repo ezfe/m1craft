@@ -1,0 +1,45 @@
+/* 
+  Localizable.strings
+  M1Craft
+
+  Created by Ezekiel Elin on 6/13/22.
+  
+*/
+
+"Close" = "Close";
+"OK" = "OK";
+
+/* Settings */
+"Open Settings" = "Open Settings";
+"Settings" = "Settings";
+"Memory Allocation: %lldGB" = "Memory Allocation: %lldGB";
+"Check for Updates…" = "Check for Updates…";
+"Currently signed in as: %@" = "Currently signed in as: %@";
+"Currently signed out." = "Currently signed out.";
+"Sign In" = "Sign In";
+"Sign out" = "Sign out";
+
+"Complete login to continue." = "Complete login to continue.";
+"If no window appears, quit Safari and try again." = "If no window appears, quit Safari and try again.";
+
+/* Right-click a version */
+"Export modified version JSON..." = "Export modified version JSON...";
+"Add Favorite" = "Add Favorite";
+"Remove Favorite" = "Remove Favorite";
+
+"Loading..." = "Loading...";
+"Retrieving Minecraft Credentials..." = "Retrieving Minecraft Credentials...";
+"Authentication Error" = "Authentication Error";
+
+"Open launcher directory" = "Open launcher directory";
+"Open minecraft directory" = "Open minecraft directory";
+
+"Play" = "Play";
+"Starting..." = "Starting...";
+"Running..." = "Running...";
+"Stop" = "Stop";
+
+/* Status updates when starting game */
+"Java Libraries" = "Java Libraries";
+"Java Runtime and Main Jar" = "Java Runtime and Main Jar";
+"Assets" = "Assets";

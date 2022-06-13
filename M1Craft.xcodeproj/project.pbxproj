@@ -11,6 +11,7 @@
 		6604C269271E1EF90024898E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6604C268271E1EF90024898E /* Assets.xcassets */; };
 		6604C278271E1FD80024898E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6604C277271E1FD80024898E /* ContentView.swift */; };
 		6604C27B271E1FFC0024898E /* InstallationManager in Frameworks */ = {isa = PBXBuildFile; productRef = 6604C27A271E1FFC0024898E /* InstallationManager */; };
+		6610CB9B28577A5E00677E6E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6610CB9A28577A5E00677E6E /* Localizable.strings */; };
 		6640C3CD27FE442500831E89 /* Array+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6640C3CC27FE442400831E89 /* Array+RawRepresentable.swift */; };
 		66530F3427C6086900CD94DE /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66530F3327C6086900CD94DE /* MainWindow.swift */; };
 		66530F3727C60C1A00CD94DE /* VersionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66530F3627C60C1A00CD94DE /* VersionListView.swift */; };
@@ -32,6 +33,7 @@
 		6604C268271E1EF90024898E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6604C26D271E1EF90024898E /* M1Craft.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = M1Craft.entitlements; sourceTree = "<group>"; };
 		6604C277271E1FD80024898E /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6610CB9A28577A5E00677E6E /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		6640C3CC27FE442400831E89 /* Array+RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+RawRepresentable.swift"; sourceTree = "<group>"; };
 		66530F3327C6086900CD94DE /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		66530F3627C60C1A00CD94DE /* VersionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionListView.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 		6604C263271E1EF80024898E /* M1Craft */ = {
 			isa = PBXGroup;
 			children = (
+				6610CB9928577A5400677E6E /* Localization */,
 				66B8AA03278D299D00E41FA1 /* M1Craft-Debug.entitlements */,
 				66F13B19273DCE35002C297B /* M1Craft-Info.plist */,
 				6604C264271E1EF80024898E /* M1Craft App.swift */,
@@ -107,6 +110,14 @@
 				6604C26D271E1EF90024898E /* M1Craft.entitlements */,
 			);
 			path = M1Craft;
+			sourceTree = "<group>";
+		};
+		6610CB9928577A5400677E6E /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				6610CB9A28577A5E00677E6E /* Localizable.strings */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 		66530F3527C60C0000CD94DE /* VersionList */ = {
@@ -172,6 +183,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 6604C258271E1EF80024898E;
 			packageReferences = (
@@ -193,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6604C269271E1EF90024898E /* Assets.xcassets in Resources */,
+				6610CB9B28577A5E00677E6E /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,7 +364,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 39QG79F7FD;
@@ -365,7 +378,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ezekiel.m1craft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -384,7 +397,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 39QG79F7FD;
@@ -398,7 +411,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ezekiel.m1craft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
