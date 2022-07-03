@@ -7,7 +7,10 @@
 
 import Foundation
 
-//let serverAddress = "http://localhost:8787"
-let serverAddress = "https://m1craft-server.ezekiel.workers.dev"
+let serverAddress = URL(string: "http://localhost:8080/api")!
+//let serverAddress = "https://m1craft-server.ezekiel.workers.dev"
 
-let manifestUrl = URL(string: "https://m1craft-server.ezekiel.workers.dev/manifest")!
+let authStartUrl = serverAddress.appendingPathComponent("auth/start")
+let authUrl = serverAddress.appendingPathComponent("auth")
+let preflightUrl = serverAddress.appendingPathComponent("preflight")
+let manifestUrl = serverAddress.appendingPathComponent("manifest")

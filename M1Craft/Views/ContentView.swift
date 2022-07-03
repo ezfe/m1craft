@@ -103,8 +103,8 @@ struct ContentView: View {
 //			}
 		}
 		.padding()
-		.onAppear {
-			Task {
+		.task {
+			do {
 				let manifest = try await VersionManifest.download(url: manifestUrl)
 				if let _earliestReleaseTime = manifest.versions.first(where: { $0.id == "19w11a" })?.releaseTime {
 					availableVersions = [.release, .snapshot]
@@ -113,6 +113,8 @@ struct ContentView: View {
 						.map { VersionManifest.VersionType.custom($0.id) }
 					availableVersions.append(contentsOf: newVersions)
 				}
+			} catch let err {
+				print(err.localizedDescription)
 			}
 		}
 	}
