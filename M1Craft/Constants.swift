@@ -11,6 +11,6 @@ let serverAddress = URL(string: "http://localhost:8080/api")!
 //let serverAddress = "https://m1craft-server.ezekiel.workers.dev"
 
 let authStartUrl = serverAddress.appendingPathComponent("auth/start")
-let authUrl = serverAddress.appendingPathComponent("auth")
+let authRefreshUrl = serverAddress.appendingPathComponent("auth/refresh")
 let preflightUrl = serverAddress.appendingPathComponent("preflight")
 let manifestUrl = serverAddress.appendingPathComponent("manifest")
