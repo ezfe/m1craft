@@ -10,6 +10,4 @@ Téléchargement : https://m1craft.ezekiel.dev
 
 <img width="612" alt="Screen Shot 2022-06-11 at 4 58 00 PM" src="https://user-images.githubusercontent.com/1449259/173204665-0cabb812-4e7d-4a94-ba59-d5d63d305b6c.png">
 
-Remarque : les versions 1.18 et ultérieures peuvent être exécutées directement à partir du lanceur officiel de Minecraft. Suivez les instructions [ici] (https://gist.github.com/ezfe/8bc43a65e16b79c955f81b4d7fa4ae6a) si vous préférez le faire - y compris si vous avez besoin de modifier le jeu. Cependant, ce lanceur est toujours plus facile (aucune étape d'installation nécessaire).
-
-Traduit avec www.DeepL.com/Translator (version gratuite)
+Remarque : les versions 1.18 et ultérieures peuvent être exécutées directement à partir du lanceur officiel de Minecraft. Suivez les instructions [ici](https://gist.github.com/ezfe/8bc43a65e16b79c955f81b4d7fa4ae6a) si vous préférez le faire - y compris si vous avez besoin de modifier le jeu. Cependant, ce lanceur est toujours plus facile (aucune étape d'installation nécessaire).
