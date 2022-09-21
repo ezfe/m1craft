@@ -50,7 +50,7 @@ struct RefreshAuthView: View {
 				}
 				
 				let request = URLRequest(url: refreshUrl)
-				let (data, response) = try await URLSession.shared.data(for: request)
+				let (data, response) = try await retrieveData(for: request)
 				
 				let code = (response as? HTTPURLResponse)?.statusCode
 				

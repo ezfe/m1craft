@@ -111,7 +111,7 @@ class AppState: ObservableObject {
 			preflightUrl = components.url!
 		}
 		
-		let response = try? await URLSession.shared.data(from: preflightUrl)
+		let response = try? await retrieveData(from: preflightUrl)
 		if let response = response {
 			let data = response.0
 			let decoded = try? JSONDecoder().decode(PreflightResponse.self, from: data)
