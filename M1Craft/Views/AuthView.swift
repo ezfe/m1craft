@@ -18,14 +18,13 @@ class SignInViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentati
 	}
 
 	func signIn() async throws -> SignInResult {
-		let clientId = "92188479-b731-4baa-b4cb-2aad9a47d10f"
-		let redirectUri = "\(serverAddress)/auth"
-		let scope = "XboxLive.signin%20offline_access"
 		let sentState = UUID()
 
 		let callbackUrl: URL = try await withCheckedThrowingContinuation { continuation in
-			let url = URL(string: "https://login.live.com/oauth20_authorize.srf?client_id=\(clientId)&response_type=code&redirect_uri=\(redirectUri)&scope=\(scope)&state=\(sentState)")!
-			print("Build URL")
+			   var components = URLComponents(url: authStartUrl, resolvingAgainstBaseURL: false)!
+			components.queryItems = [URLQueryItem(name: "state", value: sentState.description)]
+			let url = components.url!
+			
 			let authSession = ASWebAuthenticationSession(
 				url: url,
 				callbackURLScheme: "m1craft") { (url, error) in
@@ -50,19 +49,25 @@ class SignInViewModel: NSObject, ObservableObject, ASWebAuthenticationPresentati
 		let components = URLComponents(url: callbackUrl, resolvingAgainstBaseURL: false)!
 		let queryItems = components.queryItems
   
-		let id = queryItems?.first(where: { $0.name == "id" })?.value
-		let name = queryItems?.first(where: { $0.name == "name" })?.value
-		let token = queryItems?.first(where: { $0.name == "token" })?.value
-		let refresh = queryItems?.first(where: { $0.name == "refresh" })?.value
+		let resultBase64 = queryItems?.first(where: { $0.name == "signInResult" })?.value
 		let error = queryItems?.first(where: { $0.name == "error_message" })?.value
 
-		guard let id = id, let name = name, let token = token, let refresh = refresh else {
+		guard let resultBase64 = resultBase64 else {
 			throw CError.unknownError(error ?? "Unknown error")
 		}
-		
-		UserDefaults.standard.set(refresh, forKey: "azure_refresh_token")
-		
-		return SignInResult(id: id, name: name, token: token, refresh: refresh)
+		 
+		 guard let data = Data(base64Encoded: resultBase64) else {
+			 throw CError.decodingError("Failed to decode base-64: \(resultBase64)")
+		 }
+		 
+		 do {
+			 let signInResult = try JSONDecoder().decode(SignInResult.self, from: data)
+			 UserDefaults.standard.set(signInResult.refresh, forKey: "azure_refresh_token")
+			  
+			  return signInResult
+		 } catch let err {
+			 throw CError.decodingError("Failed to decode SignInResult: \(err.localizedDescription)")
+		 }
 	}
 }
 

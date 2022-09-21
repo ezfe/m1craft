@@ -33,19 +33,24 @@ struct RefreshAuthView: View {
 			signingIn = true
 			print("Attempting refresh for \(appState.azureRefreshToken)")
 			Task {
-				var components = URLComponents(string: "\(serverAddress)/refresh-auth")
-				components?.queryItems = [
-					URLQueryItem(name: "refresh_token", value: appState.azureRefreshToken)
-				]
-				guard let refreshUrl = components?.url else {
-					print("Failed to build refresh token. Resetting.")
-					appState.azureRefreshToken = ""
-					return
+				var refreshUrl = authRefreshUrl
+				let queryItems = [URLQueryItem(name: "refreshToken", value: appState.azureRefreshToken)]
+				
+				if #available(macOS 13.0, *) {
+					refreshUrl.append(queryItems: queryItems)
+				} else {
+					var components = URLComponents(url: refreshUrl, resolvingAgainstBaseURL: false)
+					components?.queryItems = queryItems
+					guard let _refreshUrl = components?.url else {
+						print("Failed to build refresh token. Resetting.")
+						appState.azureRefreshToken = ""
+						return
+					}
+					refreshUrl = _refreshUrl
 				}
 				
-				var request = URLRequest(url: refreshUrl)
-				request.httpMethod = "post"
-				let (data, response) = try await URLSession.shared.data(for: request)
+				let request = URLRequest(url: refreshUrl)
+				let (data, response) = try await retrieveData(for: request)
 				
 				let code = (response as? HTTPURLResponse)?.statusCode
 				

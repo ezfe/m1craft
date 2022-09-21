@@ -6,7 +6,7 @@
       "location" : "https://github.com/ezfe/minecraft-jar-command",
       "state" : {
         "branch" : "main",
-        "revision" : "bfeb5d18aea29c00fd111babe66293801a2570ed"
+        "revision" : "629ad17fe3d3cb9836426f77007a7851c85fd944"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sparkle-project/Sparkle",
       "state" : {
-        "revision" : "286edd1fa22505a9e54d170e9fd07d775ea233f2",
-        "version" : "2.1.0"
+        "revision" : "8e27997de02457a0c4690ffcfb8ac9c8e1066883",
+        "version" : "2.2.2"
       }
     },
     {

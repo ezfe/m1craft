@@ -101,10 +101,17 @@ class AppState: ObservableObject {
 	private func preflight() async -> PreflightStatus {
 		let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
 		
-		var components = URLComponents(string: "\(serverAddress)/preflight")
-		components?.queryItems = [URLQueryItem(name: "app_version", value: appVersion)]
+		var preflightUrl = preflightUrl
+		let queryItem = URLQueryItem(name: "app_version", value: appVersion)
+		if #available(macOS 13.0, *) {
+			preflightUrl.append(queryItems: [queryItem])
+		} else {
+			var components = URLComponents(string: preflightUrl.absoluteString)!
+			components.queryItems = [queryItem]
+			preflightUrl = components.url!
+		}
 		
-		let response = try? await URLSession.shared.data(from: components!.url!)
+		let response = try? await retrieveData(from: preflightUrl)
 		if let response = response {
 			let data = response.0
 			let decoded = try? JSONDecoder().decode(PreflightResponse.self, from: data)
