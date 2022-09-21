@@ -8,7 +8,7 @@
 import Foundation
 
 //let serverAddress = URL(string: "http://localhost:8080/api")!
-let serverAddress = URL(string: "https://m1craft-server.fly.dev/api")!
+let serverAddress = URL(string: "https://m1craft.ezekiel.dev/api")!
 
 let authStartUrl = serverAddress.appendingPathComponent("auth/start")
 let authRefreshUrl = serverAddress.appendingPathComponent("auth/refresh")
