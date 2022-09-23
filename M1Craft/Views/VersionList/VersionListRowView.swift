@@ -122,7 +122,8 @@ struct VersionListRowView: View {
 				if let url = savePanel.url, response == .OK {
 					Task {
 						do {
-							let package = try await metadata.package(patched: true)
+							let patchInfo = try await VersionPatch.download(for: metadata.id)
+							let package = try await metadata.package(with: patchInfo)
 
 							let encoder = JSONEncoder()
 							encoder.dateEncodingStrategy = .iso8601

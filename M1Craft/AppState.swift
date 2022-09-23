@@ -147,7 +147,8 @@ class AppState: ObservableObject {
 			
 			print("Patching")
 			self.launchStatus = .starting(versionType, "Patching for ARM")
-			let package = try await metadata.package(patched: true)
+			let patchInfo = try await VersionPatch.download(for: metadata.id)
+			let package = try await metadata.package(with: patchInfo)
 			guard package.minimumLauncherVersion >= 21 else {
 				self.launchStatus = .failed(versionType, "Unfortunately, This utility does not work with versions prior to 1.13")
 				return
@@ -166,15 +167,15 @@ class AppState: ObservableObject {
 			
 			print("Starting Asset Download")
 			self.launchStatus = .starting(versionType, "Starting Asset Download")
-			try await installationManager.downloadAssets(for: package, progress: { [weak self] progress in
+			try await installationManager.downloadAssets(for: package, with: patchInfo) { [weak self] progress in
 				self?.assetDownload = progress
-			})
+			}
 			
 			print("Starting Library Download")
 			self.launchStatus = .starting(versionType, "Starting Library Download")
-			let _ = try await installationManager.downloadLibraries(for: package, progress: { [weak self] progress in
+			let _ = try await installationManager.downloadLibraries(for: package) { [weak self] progress in
 				self?.libraryDownload = progress
-			})
+			}
 			
 			self.launchStatus = .starting(versionType, "Installing Natives")
 			try installationManager.copyNatives()
