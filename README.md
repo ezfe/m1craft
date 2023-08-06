@@ -2,6 +2,8 @@
 
 # Notice: With full Apple Silicon support in the default launcher, this project is not receiving full priority. As such I will not be able to guarantee any technical support or ongoing compatibility, although it is my goal to keep it working and continue improving it in the future.
 
+# I recommend [Prism Launcher](https://prismlauncher.org) for an alternative launcher at this time
+
 Run Minecraft 1.17, 1.18, and 1.19 without installing any profiles, json files, or jars.
 
 This tool does **not** modify either the Minecraft JAR or LWJGL JARs. For 1.19, the LWJGL jars are provided by Mojang. For versions 1.18 and older and the LWJGL jars are pre-built 3.3.0 (3.3.1 for 22w16a and later) directly from lwjgl.org.
